@@ -21,19 +21,19 @@ const HomeScreen = ({ navigation }) => {
       <View style={styles.menu}>
         <TouchableOpacity onPress={() => navigation.navigate('JogoDaVelha')}>
           <View style={styles.menuItem}>
-            <Image source={require('./src/images/tic-tac-toe.png')} style={styles.menuIcon} />
+            <Image source={require('../images/tic-tac-toe.png')} style={styles.menuIcon} />
             <Text style={styles.menuText}>Jogo da Velha</Text>
           </View>
         </TouchableOpacity>
         <TouchableOpacity onPress={() => navigation.navigate('Forca')}>
           <View style={styles.menuItem}>
-            <Image source={require('./src/images/hangman.png')} style={styles.menuIcon} />
+            <Image source={require('../images/hangman.png')} style={styles.menuIcon} />
             <Text style={styles.menuText}>Jogo da Forca</Text>
           </View>
         </TouchableOpacity>
         <TouchableOpacity onPress={() => navigation.navigate('RPS')}>
           <View style={styles.menuItem}>
-            <Image source={require('./src/images/rock-paper-scissors.jpeg')} style={styles.menuIcon} />
+            <Image source={require('../images/rock-paper-scissors.jpeg')} style={styles.menuIcon} />
             <Text style={styles.menuText}>Pedra, Papel, Tesoura</Text>
           </View>
         </TouchableOpacity>
@@ -46,7 +46,7 @@ const HomeScreen = ({ navigation }) => {
 
       {/* Animação de Fundo */}
       <Animated.View style={styles.backgroundAnimation}>
-        <Image source={require('./src/images/game-background.jpeg')} style={styles.backgroundImage} />
+        <Image source={require('../images/game-background.jpeg')} style={styles.backgroundImage} />
       </Animated.View>
     </View>
   );

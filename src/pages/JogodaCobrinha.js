@@ -22,7 +22,7 @@ const SnakeGame = () => {
   useEffect(() => {
     const interval = setInterval(() => moveSnake(), 200);
     return () => clearInterval(interval);
-  }, [snake]);
+  }, [snake, direction]);
 
   const moveSnake = () => {
     if (gameOver) return;
@@ -65,6 +65,14 @@ const SnakeGame = () => {
     setDirection(newDirection);
   };
 
+  const resetGame = () => {
+    setSnake([{ x: 0, y: 0 }]);
+    setFood(getRandomPosition());
+    setDirection({ x: CELL_SIZE, y: 0 });
+    setScore(0);
+    setGameOver(false);
+  };
+
   return (
     <View style={styles.container}>
       <Text style={styles.score}>Score: {score}</Text>
@@ -92,6 +100,11 @@ const SnakeGame = () => {
         </TouchableOpacity>
       </View>
       {gameOver && <Text style={styles.gameOver}>Game Over</Text>}
+      {gameOver && (
+        <TouchableOpacity style={styles.restartButton} onPress={resetGame}>
+          <Text style={styles.restartButtonText}>Reiniciar Jogo</Text>
+        </TouchableOpacity>
+      )}
     </View>
   );
 };
@@ -151,6 +164,17 @@ const styles = StyleSheet.create({
     fontSize: 32,
     color: '#ff4d4d',
     marginTop: 20,
+    fontWeight: 'bold',
+  },
+  restartButton: {
+    backgroundColor: '#28a745',
+    padding: 10,
+    borderRadius: 8,
+    marginTop: 20,
+  },
+  restartButtonText: {
+    color: '#fff',
+    fontSize: 18,
     fontWeight: 'bold',
   },
 });
