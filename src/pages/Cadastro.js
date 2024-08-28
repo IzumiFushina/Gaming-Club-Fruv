@@ -1,5 +1,5 @@
 import React, { useState, useEffect, useRef } from 'react';
-import { View, Image, StyleSheet, Alert, Text, TextInput, TouchableOpacity, Animated } from 'react-native';
+import { View, Image, StyleSheet, Alert, Text, TextInput, TouchableOpacity, Animated, ImageBackground } from 'react-native';
 import * as ImagePicker from 'expo-image-picker';
 
 export default function Cadastro() {
@@ -42,45 +42,44 @@ export default function Cadastro() {
 
   return (
     <View style={styles.container}>
-      <Animated.View style={[styles.innerContainer, { transform: [{ translateY }] }]}>
-        <Image 
-          source={avatar ? { uri: avatar } : require('../images/tic-tac-toe.png')} 
-          style={styles.avatar} 
-        />
-        <TouchableOpacity style={styles.avatarButton} onPress={pickImage}>
-          <Text style={styles.avatarButtonText}>Trocar Avatar</Text>
-        </TouchableOpacity>
-
-        <Text style={styles.inputLabel}>Nickname</Text>
+            <ImageBackground 
+        source={require('../images/fundo.png')} 
+        style={styles.background} 
+        resizeMode="cover"
+      >
+      <Image 
+        source={avatar ? { uri: avatar } : require('../images/image.png')} 
+        style={styles.avatar} 
+      />
+      <TouchableOpacity style={styles.avatarButton} onPress={pickImage}>
+        <Text style={styles.avatarButtonText}>Trocar Avatar</Text>
+      </TouchableOpacity>
+      
         <TextInput
-          style={styles.input}
-          placeholder="Nome"
-          keyboardType="default"
-          placeholderTextColor="#888"
+          style={styles.InputName}
+          placeholder="Nickname"
         />
-        <Text style={styles.inputLabel}>E-mail adress</Text>
         <TextInput
-          style={styles.input}
+          style={styles.InputName}
           placeholder="E-mail"
-          secureTextEntry={true}
-          placeholderTextColor="#888"
         />
-
-        <Text style={styles.inputLabel}>Password</Text>
         <TextInput
-          style={styles.input}
+          style={styles.InputName}
           placeholder="Senha"
           secureTextEntry={true}
-          placeholderTextColor="#888"
         />
-
+        <TextInput
+          style={styles.InputName}
+          placeholder="Repita sua senha"
+          secureTextEntry={true}
+        />
         <TouchableOpacity
-          style={styles.cdsButton}
+          style={styles.BtnCadastro}
           onPress={() => Alert.alert('Cadastro Iniciado')}
         >
           <Text style={styles.cdsButtonText}>Get Started</Text>
         </TouchableOpacity>
-      </Animated.View>
+      </ImageBackground>
     </View>
   );
 }
@@ -88,26 +87,11 @@ export default function Cadastro() {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: '#E6447D',
+    backgroundColor: 'white',
     alignItems: 'center',
     justifyContent: 'center',
     padding: 20,
   },
-
-  innerContainer: {
-    width: '100%',
-    backgroundColor: '#fff',
-    borderRadius: 10,
-    padding: 20,
-    shadowColor: '#000',
-    shadowOffset: { width: 0, height: 2 },
-    shadowOpacity: 0.3,
-    shadowRadius: 4,
-    elevation: 5,
-    marginBottom: 20,
-    alignItems: 'center', // Centraliza os itens dentro da View
-  },
-
   avatar: {
     width: 100,
     height: 100,
@@ -116,66 +100,48 @@ const styles = StyleSheet.create({
     borderWidth: 2,
     borderColor: '#ddd',
   },
-
   avatarButton: {
     backgroundColor: '#652E79',
-    paddingVertical: 10,
-    paddingHorizontal: 20,
-    borderRadius: 20,
+    paddingVertical: 5,
+    paddingHorizontal: 10,
+    borderRadius: 5,
     marginBottom: 20,
     alignSelf: 'center',
   },
-
   avatarButtonText: {
     color: '#fff',
     fontSize: 16,
     fontWeight: 'bold',
   },
-
-  inputLabel: {
-    alignSelf: 'flex-start',
-    fontSize: 16,
-    color: '#333',
-    marginBottom: 5,
-    marginLeft: 10,
-  },
-
-  input: {
+  background: {
+    flex: 1, // Use flex to make sure the background covers the whole view
     width: '100%',
-    backgroundColor: '#fff',
-    borderRadius: 8,
-    padding: 15,
-    borderWidth: 1,
-    borderColor: '#ccc',
-    shadowColor: '#000',
-    shadowOffset: { width: -2, height: -2 },
-    shadowOpacity: 0.4,
-    shadowRadius: 6,
-    elevation: 8,
-    marginBottom: 15,
-  },
-
-  cdsButton: {
-    width: '100%',
-    height: 50,
-    backgroundColor: '#28a745',
     alignItems: 'center',
     justifyContent: 'center',
-    borderRadius: 8,
-    padding: 15,
-    borderWidth: 1,
-    borderColor: '#ccc',
-    shadowColor: '#000',
-    shadowOffset: { width: -2, height: -2 },
-    shadowOpacity: 0.4,
-    shadowRadius: 6,
-    elevation: 8,
-    marginTop: 20,
   },
-
+  InputName: {
+    width: 300,
+    height: 50,
+    margin: 5,
+    borderRadius: 10,
+    justifyContent: "center",
+    backgroundColor: '#4B0082',
+    color: 'white', // Added color to make text visible on dark background
+  },
+  BtnCadastro: {
+    alignSelf: "center",
+    alignItems: "center",
+    justifyContent: "center",
+    height: 45,
+    width: 280,
+    marginTop: 30,
+    backgroundColor: "#4B0082",
+    borderRadius: 10,
+    borderBottomWidth: 1,
+    borderColor: "black",
+  },
   cdsButtonText: {
-    color: '#fff',
-    fontSize: 18,
-    fontWeight: 'bold',
+    color: 'white', // Ensure button text is visible
+    fontSize: 16,
   },
 });

@@ -1,7 +1,61 @@
-npm install @babel/core @babel/preset-env @babel/runtime --save-dev
+import React, { useState, useEffect } from "react";
+import { Text, View, Animated, TouchableOpacity, ImageBackground } from "react-native";
+import { useFonts } from "expo-font";
+import Index from "./src/rotas/Index";
+import CompOnboarding from "./src/components/CompOnboarding";
 
-yarn add @babel/core @babel/preset-env @babel/runtime --dev
+export default function App() {
+  const [start, setStart] = useState(false);
+  const [heightValue] = useState(new Animated.Value(1000));
 
-npm install -g expo-cli
+  useEffect(() => {
+    if (start) {
+      setTimeout(() => {
+        Animated.timing(heightValue, {
+          toValue: 0,
+          duration: 5000,
+          useNativeDriver: false,
+        }).start();
+      }, 2000);
+    }
+  }, [start, heightValue]);
 
-expo start --clear
+  const [fontsLoaded] = useFonts({
+    Font1: require("./src/assets/Fonts/DMSerifDisplay-Regular.ttf"),
+    Font2: require("./src/assets/Fonts/AlfaSlabOne-Regular.ttf"),
+  });
+
+  if (!fontsLoaded) {
+    return null;
+  }
+
+  return (
+    <>
+      {start ? (
+        <View style={{ flex: 1 }}>
+          <Index />
+        </View>
+      ) : (
+        <ImageBackground
+          source={require("./src/images/GamingClub.png")}
+          style={{ flex: 1, justifyContent: "center", alignItems: "center" }}
+        >
+          <Animated.View
+            style={{
+              width: "80%",
+              height: heightValue,
+              justifyContent: "center",
+              alignItems: "center",
+              textAlign: "left",
+            }}
+          >
+            <Text style={{ fontFamily: 'Font1', fontSize: 20 }}>TESTEEEEEEEEEEEE</Text>
+            <TouchableOpacity onPress={() => setStart(true)}>
+              <Text style={{ fontFamily: 'Font2', fontSize: 18 }}>Get Started</Text>
+            </TouchableOpacity>
+          </Animated.View>
+        </ImageBackground>
+      )}
+    </>
+  );
+}
