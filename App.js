@@ -1,8 +1,8 @@
 import React, { useState, useEffect } from "react";
-import { Text, View, Animated, TouchableOpacity, ImageBackground } from "react-native";
+import { Text, View, Animated, TouchableOpacity, ImageBackground} from "react-native";
 import { useFonts } from "expo-font";
-import Index from "./src/rotas/Index";
-import CompOnboarding from "./src/components/CompOnboarding";
+import Index from "./src/routes/Index";
+
 
 export default function App() {
   const [start, setStart] = useState(false);
@@ -37,7 +37,7 @@ export default function App() {
         </View>
       ) : (
         <ImageBackground
-          source={require("./src/images/GamingClub.png")}
+          source={require("./src/images/GAMING.jpg")}
           style={{ flex: 1, justifyContent: "center", alignItems: "center" }}
         >
           <Animated.View
@@ -46,12 +46,20 @@ export default function App() {
               height: heightValue,
               justifyContent: "center",
               alignItems: "center",
-              textAlign: "left",
             }}
           >
-            <Text style={{ fontFamily: 'Font1', fontSize: 20 }}>TESTEEEEEEEEEEEE</Text>
-            <TouchableOpacity onPress={() => setStart(true)}>
-              <Text style={{ fontFamily: 'Font2', fontSize: 18 }}>Get Started</Text>
+    
+            <TouchableOpacity 
+              style={{
+                backgroundColor: "purple",
+                paddingVertical: 15,
+                paddingHorizontal: 30,
+                borderRadius: 25,
+                marginTop: '100%',
+              }}
+              onPress={() => setStart(true)}
+            >
+              <Text style={{ fontFamily: 'Font2', fontSize: 18, color: "#FFF" }}>Get Started</Text>
             </TouchableOpacity>
           </Animated.View>
         </ImageBackground>

@@ -45,8 +45,9 @@ export default function Cadastro() {
             <ImageBackground 
         source={require('../images/fundo.png')} 
         style={styles.background} 
-        resizeMode="cover"
+        
       >
+      <View style={styles.viewCds}>
       <Image 
         source={avatar ? { uri: avatar } : require('../images/image.png')} 
         style={styles.avatar} 
@@ -79,6 +80,7 @@ export default function Cadastro() {
         >
           <Text style={styles.cdsButtonText}>Get Started</Text>
         </TouchableOpacity>
+        </View>
       </ImageBackground>
     </View>
   );
@@ -90,8 +92,10 @@ const styles = StyleSheet.create({
     backgroundColor: 'white',
     alignItems: 'center',
     justifyContent: 'center',
-    padding: 20,
+    padding: 0,
+    margin: 0,
   },
+
   avatar: {
     width: 100,
     height: 100,
@@ -100,25 +104,32 @@ const styles = StyleSheet.create({
     borderWidth: 2,
     borderColor: '#ddd',
   },
+
   avatarButton: {
     backgroundColor: '#652E79',
     paddingVertical: 5,
     paddingHorizontal: 10,
     borderRadius: 5,
-    marginBottom: 20,
+    marginBottom: 10,
     alignSelf: 'center',
   },
+
   avatarButtonText: {
     color: '#fff',
     fontSize: 16,
     fontWeight: 'bold',
   },
+
   background: {
     flex: 1, // Use flex to make sure the background covers the whole view
     width: '100%',
+    height: '100%',
     alignItems: 'center',
     justifyContent: 'center',
+    margin: 0,
+    padding: 0,
   },
+
   InputName: {
     width: 300,
     height: 50,
@@ -128,6 +139,7 @@ const styles = StyleSheet.create({
     backgroundColor: '#4B0082',
     color: 'white', // Added color to make text visible on dark background
   },
+
   BtnCadastro: {
     alignSelf: "center",
     alignItems: "center",
@@ -140,8 +152,20 @@ const styles = StyleSheet.create({
     borderBottomWidth: 1,
     borderColor: "black",
   },
+
   cdsButtonText: {
     color: 'white', // Ensure button text is visible
     fontSize: 16,
   },
+
+  viewCds: {
+   height: '75%',
+   width: '90%',
+   marginBottom: 120,
+   backgroundColor: 'white',
+   borderRadius: 10,
+   alignItems: 'center',
+   justifyContent: 'center',
+  },
+
 });
