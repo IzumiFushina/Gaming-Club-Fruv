@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { Text, View, Animated, TouchableOpacity, ImageBackground} from "react-native";
+import { Text, View, Animated, TouchableOpacity, ImageBackground } from "react-native";
 import { useFonts } from "expo-font";
 import Index from "./src/routes/Index";
 
@@ -37,8 +37,13 @@ export default function App() {
         </View>
       ) : (
         <ImageBackground
-          source={require("./src/images/GAMING.jpg")}
-          style={{ flex: 1, justifyContent: "center", alignItems: "center" }}
+          source={require("./src/images/foto2.png")}
+          style={{
+            flex: 1,
+            justifyContent: 'center',
+            alignItems: 'center', // Centraliza a imagem horizontalmente
+            resizeMode: 'contain', // Ajusta a imagem para caber na tela sem cortar
+          }}
         >
           <Animated.View
             style={{
@@ -48,14 +53,16 @@ export default function App() {
               alignItems: "center",
             }}
           >
-    
             <TouchableOpacity 
               style={{
                 backgroundColor: "purple",
                 paddingVertical: 15,
                 paddingHorizontal: 30,
                 borderRadius: 25,
-                marginTop: '100%',
+                flexDirection: 'row', // Coloca o conteúdo do botão na horizontal
+                alignItems: 'center',
+                justifyContent: 'center', // Centraliza o botão horizontalmente
+                marginTop: '10%', // Diminui a margem para cima para não cobrir o botão
               }}
               onPress={() => setStart(true)}
             >

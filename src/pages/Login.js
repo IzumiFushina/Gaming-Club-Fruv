@@ -1,4 +1,3 @@
-
 import React, { useState, useEffect, useRef } from 'react';
 import { View, Image, StyleSheet, Alert, Text, TextInput, TouchableOpacity, Animated, ImageBackground } from 'react-native';
 import * as ImagePicker from 'expo-image-picker';
@@ -43,44 +42,43 @@ export default function Login() {
 
   return (
     <View style={styles.container}>
-            <ImageBackground 
-        source={require('../images/LogineCadastro.png')} 
+      <ImageBackground 
+        source={require('../images/foto.png')} 
         style={styles.background} 
-        
       >
-      <View style={styles.viewCds}>
-      <Image 
-        source={avatar ? { uri: avatar } : require('../images/image.png')} 
-        style={styles.avatar} 
-      />
-      <TouchableOpacity style={styles.avatarButton} onPress={pickImage}>
-        <Text style={styles.avatarButtonText}>Trocar Avatar</Text>
-      </TouchableOpacity>
-      
-        <TextInput
-          style={styles.InputName}
-          placeholder="Nickname"
-        />
-        <TextInput
-          style={styles.InputName}
-          placeholder="E-mail"
-        />
-        <TextInput
-          style={styles.InputName}
-          placeholder="Senha"
-          secureTextEntry={true}
-        />
-        <TextInput
-          style={styles.InputName}
-          placeholder="Repita sua senha"
-          secureTextEntry={true}
-        />
-        <TouchableOpacity
-          style={styles.BtnCadastro}
-          onPress={() => Alert.alert('Cadastro Iniciado')}
-        >
-          <Text style={styles.cdsButtonText}>Get Started</Text>
-        </TouchableOpacity>
+        <View style={styles.viewCds}>
+          <Image 
+            source={avatar ? { uri: avatar } : require('../images/image.png')} 
+            style={styles.avatar} 
+          />
+          <TouchableOpacity style={styles.avatarButton} onPress={pickImage}>
+            <Text style={styles.avatarButtonText}>Trocar Avatar</Text>
+          </TouchableOpacity>
+          
+          <TextInput
+            style={styles.InputName}
+            placeholder="Nickname"
+          />
+          <TextInput
+            style={styles.InputName}
+            placeholder="E-mail"
+          />
+          <TextInput
+            style={styles.InputName}
+            placeholder="Senha"
+            secureTextEntry={true}
+          />
+          <TextInput
+            style={styles.InputName}
+            placeholder="Repita sua senha"
+            secureTextEntry={true}
+          />
+          <TouchableOpacity
+            style={styles.BtnCadastro}
+            onPress={() => Alert.alert('Cadastro Iniciado')}
+          >
+            <Text style={styles.cdsButtonText}>Get Started</Text>
+          </TouchableOpacity>
         </View>
       </ImageBackground>
     </View>
@@ -122,7 +120,7 @@ const styles = StyleSheet.create({
   },
 
   background: {
-    flex: 1, // Use flex to make sure the background covers the whole view
+    flex: 1,
     width: '100%',
     height: '100%',
     alignItems: 'center',
@@ -137,8 +135,8 @@ const styles = StyleSheet.create({
     margin: 5,
     borderRadius: 10,
     justifyContent: "center",
-    backgroundColor: '#4B0082',
-    color: 'white', // Added color to make text visible on dark background
+  
+    color: 'white',
   },
 
   BtnCadastro: {
@@ -155,18 +153,17 @@ const styles = StyleSheet.create({
   },
 
   cdsButtonText: {
-    color: 'white', // Ensure button text is visible
+    color: 'white',
     fontSize: 16,
   },
 
   viewCds: {
-   height: '75%',
-   width: '90%',
-   marginBottom: 120,
-   backgroundColor: 'white',
-   borderRadius: 10,
-   alignItems: 'center',
-   justifyContent: 'center',
+    height: '80%',
+    width: '90%',
+    marginTop: 200, // Ajuste para mover o card mais para baixo
+    backgroundColor: 'rgba(255, 255, 255, 0.8)', // Cor de fundo branca com 80% de opacidade
+    borderRadius: 10,
+    alignItems: 'center',
+    justifyContent: 'center',
   },
-
 });
