@@ -1,83 +1,79 @@
-import React, { useState, useEffect } from 'react';
-import { View, Text, TouchableOpacity, StyleSheet, ActivityIndicator } from 'react-native';
-import axios from 'axios';
+import React, { useState } from 'react';
+import { View, Text, TouchableOpacity, StyleSheet } from 'react-native';
 
-export default function Quiz() {
-  const [questions, setQuestions] = useState([]);
-  const [currentQuestionIndex, setCurrentQuestionIndex] = useState(0);
-  const [selectedAnswer, setSelectedAnswer] = useState(null);
-  const [loading, setLoading] = useState(true);
-  const [score, setScore] = useState(0);
+export default function App() {
+  const perguntas = [
+    {
+      pergunta: 'Qual é a capital do Brasil?',
+      respostas: ['Rio de Janeiro', 'Brasília', 'São Paulo', 'Salvador'],
+      respostaCorreta: 'Brasília',
+    },
+    {
+      pergunta: 'Qual é o maior planeta do sistema solar?',
+      respostas: ['Terra', 'Marte', 'Júpiter', 'Saturno'],
+      respostaCorreta: 'Júpiter',
+    },
+    {
+      pergunta: 'Quem pintou a Mona Lisa?',
+      respostas: ['Vincent van Gogh', 'Leonardo da Vinci', 'Pablo Picasso', 'Claude Monet'],
+      respostaCorreta: 'Leonardo da Vinci',
+    },
+    {
+      pergunta: 'Em que ano o homem pisou na Lua pela primeira vez?',
+      respostas: ['1959', '1969', '1979', '1989'],
+      respostaCorreta: '1969',
+    },
+    {
+      pergunta: 'Qual é o elemento químico representado pela letra O?',
+      respostas: ['Oxigênio', 'Ouro', 'Osso', 'Ósmio'],
+      respostaCorreta: 'Oxigênio',
+    },
+  ];
 
-  useEffect(() => {
-    fetchQuestions();
-  }, []);
+  const [indiceAtual, setIndiceAtual] = useState(0);
+  const [respostaSelecionada, setRespostaSelecionada] = useState(null);
+  const [pontuacao, setPontuacao] = useState(0);
 
-  const fetchQuestions = async () => {
-    try {
-      const response = await axios.get('https://opentdb.com/api.php?amount=10&category=9&type=multiple');
-      const formattedQuestions = response.data.results.map((q) => ({
-        question: q.question,
-        correct_answer: q.correct_answer,
-        answers: [...q.incorrect_answers, q.correct_answer].sort(() => Math.random() - 0.5),
-      }));
-      setQuestions(formattedQuestions);
-      setLoading(false);
-    } catch (error) {
-      console.error(error);
+  const handleAnswer = (resposta) => {
+    setRespostaSelecionada(resposta);
+    if (resposta === perguntas[indiceAtual].respostaCorreta) {
+      setPontuacao(pontuacao + 1);
     }
   };
 
-  const handleAnswer = (answer) => {
-    setSelectedAnswer(answer);
-    if (answer === questions[currentQuestionIndex].correct_answer) {
-      setScore(score + 1);
-    }
-  };
-
-  const nextQuestion = () => {
-    setSelectedAnswer(null);
-    if (currentQuestionIndex < questions.length - 1) {
-      setCurrentQuestionIndex(currentQuestionIndex + 1);
+  const proximaPergunta = () => {
+    setRespostaSelecionada(null);
+    if (indiceAtual < perguntas.length - 1) {
+      setIndiceAtual(indiceAtual + 1);
     } else {
-      alert(`Quiz finalizado! Você acertou ${score} de ${questions.length} perguntas.`);
-      setCurrentQuestionIndex(0);
-      setScore(0);
-      fetchQuestions(); // Para resetar as perguntas
+      alert(`Quiz finalizado! Você acertou ${pontuacao} de ${perguntas.length} perguntas.`);
+      setIndiceAtual(0);
+      setPontuacao(0);
     }
   };
-
-  if (loading) {
-    return (
-      <View style={styles.loadingContainer}>
-        <ActivityIndicator size="large" color="#0000ff" />
-        <Text>Carregando perguntas...</Text>
-      </View>
-    );
-  }
 
   return (
     <View style={styles.container}>
-      <Text style={styles.question}>{questions[currentQuestionIndex].question}</Text>
-      {questions[currentQuestionIndex].answers.map((answer, index) => (
+      <Text style={styles.pergunta}>{perguntas[indiceAtual].pergunta}</Text>
+      {perguntas[indiceAtual].respostas.map((resposta, index) => (
         <TouchableOpacity
           key={index}
           style={[
-            styles.answerButton,
-            selectedAnswer === answer && {
-              backgroundColor: answer === questions[currentQuestionIndex].correct_answer ? 'green' : 'red',
+            styles.botaoResposta,
+            respostaSelecionada === resposta && {
+              backgroundColor: resposta === perguntas[indiceAtual].respostaCorreta ? 'green' : 'red',
             },
           ]}
-          onPress={() => handleAnswer(answer)}
-          disabled={selectedAnswer !== null}
+          onPress={() => handleAnswer(resposta)}
+          disabled={respostaSelecionada !== null}
         >
-          <Text style={styles.answerText}>{answer}</Text>
+          <Text style={styles.textoResposta}>{resposta}</Text>
         </TouchableOpacity>
       ))}
 
-      {selectedAnswer && (
-        <TouchableOpacity style={styles.nextButton} onPress={nextQuestion}>
-          <Text style={styles.nextButtonText}>Próxima Pergunta</Text>
+      {respostaSelecionada && (
+        <TouchableOpacity style={styles.botaoProxima} onPress={proximaPergunta}>
+          <Text style={styles.textoBotaoProxima}>Próxima Pergunta</Text>
         </TouchableOpacity>
       )}
     </View>
@@ -92,12 +88,12 @@ const styles = StyleSheet.create({
     padding: 20,
     backgroundColor: '#fff',
   },
-  question: {
+  pergunta: {
     fontSize: 18,
     marginBottom: 20,
     textAlign: 'center',
   },
-  answerButton: {
+  botaoResposta: {
     backgroundColor: '#f0f0f0',
     padding: 10,
     marginVertical: 5,
@@ -105,22 +101,17 @@ const styles = StyleSheet.create({
     borderRadius: 5,
     alignItems: 'center',
   },
-  answerText: {
+  textoResposta: {
     fontSize: 16,
   },
-  nextButton: {
+  botaoProxima: {
     backgroundColor: '#008CBA',
     padding: 10,
     marginTop: 20,
     borderRadius: 5,
   },
-  nextButtonText: {
+  textoBotaoProxima: {
     color: '#fff',
     fontSize: 16,
-  },
-  loadingContainer: {
-    flex: 1,
-    justifyContent: 'center',
-    alignItems: 'center',
   },
 });

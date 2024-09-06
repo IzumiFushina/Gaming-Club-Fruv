@@ -1,6 +1,7 @@
 import React, { useState, useEffect, useRef } from 'react';
 import { View, Image, StyleSheet, Alert, Text, TextInput, TouchableOpacity, Animated, ImageBackground } from 'react-native';
 import * as ImagePicker from 'expo-image-picker';
+import Feather from '@expo/vector-icons/Feather';
 
 export default function Login() {
   const [avatar, setAvatar] = useState(null);
@@ -43,53 +44,67 @@ export default function Login() {
   return (
     <View style={styles.container}>
       <ImageBackground 
-        source={require('../images/foto.png')} 
+        source={require('../images/foto4.png')} 
         style={styles.background} 
       >
-        
         {/* Card de Sombra */}
+        <Animated.View style={[styles.shadowCard, { transform: [{ translateY }] }]} />
         
-        <View style={styles.shadowCard}></View>
-                {/* Card Principal */}
-        <View style={styles.viewCds}>
-           <Animated.View style={[styles.viewCds, { transform: [{ translateY }] }]}>
-          <Image 
-            source={avatar ? { uri: avatar } : require('../images/image.png')} 
-            style={styles.avatar} 
-          />
-          <TouchableOpacity style={styles.avatarButton} onPress={pickImage}>
-            <Text style={styles.avatarButtonText}>Trocar Avatar</Text>
-          </TouchableOpacity>
-          
-          <TextInput
-            style={styles.InputName}
-            placeholder="Nickname"
-          />
-          <TextInput
-            style={styles.InputName}
-            placeholder="E-mail"
-          />
-          <TextInput
-            style={styles.InputName}
-            placeholder="Senha"
-            secureTextEntry={true}
-          />
-          <TextInput
-            style={styles.InputName}
-            placeholder="Repita sua senha"
-            secureTextEntry={true}
-          />
-          <TouchableOpacity
-            style={styles.BtnCadastro}
-            onPress={() => Alert.alert('Cadastro Iniciado')}
+        {/* Card Principal */}
+        <Animated.View style={[styles.viewCds, { transform: [{ translateY }] }]}>
+          {/* Fundo da imagem dentro do card */}
+          <ImageBackground
+            source={avatar ? { uri: avatar } : require('../images/foto10.png')} 
+            style={styles.cardBackground}
           >
-            <Text style={styles.cdsButtonText}>Get Started</Text>
-          </TouchableOpacity>
-          </Animated.View>
-        </View>
+            {/* Ícone no canto superior direito */}
+            <TouchableOpacity style={styles.closeIcon}>
+              <Feather name="x" size={24} color="black" />
+            </TouchableOpacity>
+  
+            {/* Inputs e Botões na frente da imagem */}
+            <Image 
+              source={require('../images/foto3.png')} 
+              style={styles.avatar} 
+            />
+            <TouchableOpacity style={styles.avatarButton} onPress={pickImage}>
+              <Text style={styles.avatarButtonText}>Trocar Avatar</Text>
+            </TouchableOpacity>
+            
+            {/* Inputs animados */}
+            <Animated.View style={{ transform: [{ translateY }] }}>
+              <TextInput
+                style={styles.InputName}
+                placeholder="Nickname"
+              />
+              <TextInput
+                style={styles.InputName}
+                placeholder="E-mail"
+              />
+              <TextInput
+                style={styles.InputName}
+                placeholder="Senha"
+                secureTextEntry={true}
+              />
+              <TextInput
+                style={styles.InputName}
+                placeholder="Repita sua senha"
+                secureTextEntry={true}
+              />
+              <TouchableOpacity
+                style={styles.BtnCadastro}
+                onPress={() => Alert.alert('Cadastro Iniciado')}
+              >
+                <Text style={styles.cdsButtonText}>Get Started</Text>
+              </TouchableOpacity>
+            </Animated.View>
+          </ImageBackground>
+        </Animated.View>
       </ImageBackground>
     </View>
   );
+  
+  
 }
 
 const styles = StyleSheet.create({
@@ -101,23 +116,38 @@ const styles = StyleSheet.create({
     padding: 0,
     margin: 0,
   },
-
+  closeIcon: {
+    position: 'absolute',
+    top: 10,   
+    right: 10, 
+    zIndex: 3, 
+  },
   avatar: {
-    width: 100,
-    height: 100,
+    width: 90,
+    height: 90,
     borderRadius: 50,
-    marginBottom: 20,
+    marginBottom: 10,
     borderWidth: 2,
-    borderColor: '#ddd',
+    borderColor: '#000',
   },
 
   avatarButton: {
-    backgroundColor: '#652E79',
-    paddingVertical: 5,
-    paddingHorizontal: 10,
-    borderRadius: 5,
+    backgroundColor: '#fadb42', // Cor mais elegante
+    paddingVertical: 12, // Aumentando um pouco o tamanho vertical
+    paddingHorizontal: 20,
     marginBottom: 10,
     alignSelf: 'center',
+    borderRadius: 8, // Leve arredondamento
+    shadowColor: "#000", // Sombra mais suave
+    shadowOffset: {
+      width: 0,
+      height: 2,
+    },
+    shadowOpacity: 0.2,
+    shadowRadius: 3.5,
+    elevation: 6,
+    flexDirection: 'row', // Para alinhar o texto com ícones se adicionados
+    justifyContent: 'center', // Centralizando o conteúdo
   },
 
   avatarButtonText: {
@@ -136,6 +166,14 @@ const styles = StyleSheet.create({
     padding: 0,
   },
 
+  cardBackground: {
+    flex: 1,
+    width: '100%',
+    height: '100%',
+    alignItems: 'center',
+    justifyContent: 'center',
+  },
+
   InputName: {
     width: 300,
     height: 50,
@@ -151,42 +189,52 @@ const styles = StyleSheet.create({
     alignSelf: "center",
     alignItems: "center",
     justifyContent: "center",
-    height: 45,
-    width: 280,
-    marginTop: 30,
-    backgroundColor: "#4B0082",
-    borderRadius: 10,
-    borderBottomWidth: 1,
-    borderColor: "black",
+    height: 50,
+    width: "70%",
+    marginTop: 20,
+    backgroundColor: "#fadb42", // Cor elegante do botão com gradiente
+
+    borderRadius: 8, // Leve arredondamento
+    shadowColor: "#000", // Sombra suave
+    shadowOffset: {
+      width: 0,
+      height: 2,
+    },
+    shadowOpacity: 0.2,
+    shadowRadius: 3.5,
+    elevation: 6,
   },
 
   cdsButtonText: {
     color: 'white',
-    fontSize: 16,
+    fontSize: 18,
+    fontWeight: 'bold',
+    letterSpacing: 1, // Adicionando espaçamento entre as letras
   },
 
   viewCds: {
-    height: '80%',
+    height: '65%',
     width: '90%',
-    backgroundColor: 'yellow', // Cor sólida amarela
-    borderRadius: 10,
+    backgroundColor: 'rgba(0, 0, 0, 0.5)', // Para permitir que a imagem de fundo seja visível
     alignItems: 'center',
     justifyContent: 'center',
-    zIndex: 2, // Card principal, na frente da sombra
-    position: 'absolute', // Para sobrepor com o card de sombra
-    top: 200, // Ajuste vertical
-    left: 15, // Ajuste horizontal para sobrepor ligeiramente
+    zIndex: 2, 
+    position: 'absolute', 
+    top: 200, 
+    left: 15,
+    borderWidth: 2, 
+    borderColor: 'black', 
   },
 
   shadowCard: {
     position: 'absolute',
-    height: '80%',
+    height: '65%',
     width: '90%',
-    backgroundColor: 'black', // Cor de sombra preta
-    borderRadius: 10,
-    top: 210,  // Deslocamento para simular a sombra (mais abaixo)
-    left: 25,  // Deslocamento lateral para simular a sombra (mais à direita)
-    zIndex: 1,  // Fica atrás do card principal
-    opacity: 0.5, // Transparência para efeito de sombra
+    backgroundColor: '#ffed95',
+    borderColor: "black",
+    borderWidth: 2,
+    top: 210,  
+    left: 25,
+    zIndex: 1,
   }
 });

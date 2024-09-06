@@ -1,5 +1,5 @@
 import React, { useState, useEffect, useRef } from 'react';
-import { View, Text, StyleSheet, Dimensions, TouchableOpacity, Animated, Alert } from 'react-native';
+import { View, Text, StyleSheet, Dimensions, Animated, Alert, TouchableWithoutFeedback } from 'react-native';
 
 const { width, height } = Dimensions.get('window');
 const BIRD_SIZE = 50;
@@ -7,47 +7,46 @@ const PIPE_WIDTH = 80;
 const PIPE_HEIGHT = 300;
 const PIPE_GAP = 150;
 const GRAVITY = 0.5;
-const JUMP = -10;
+const FLY_SPEED = -8;
 const PIPE_SPEED = 4;
-const PIPE_SPACING = 250;
 
 const FlappyBird = () => {
-  const [birdY, setBirdY] = useState(new Animated.Value(height / 2 - BIRD_SIZE / 2));
-  const [pipeX, setPipeX] = useState(new Animated.Value(width));
   const [score, setScore] = useState(0);
   const [isGameOver, setIsGameOver] = useState(false);
+  const [isFlying, setIsFlying] = useState(false);
+
   const birdRef = useRef(new Animated.Value(height / 2 - BIRD_SIZE / 2)).current;
   const pipeRef = useRef(new Animated.Value(width)).current;
-  const fallAnim = useRef(new Animated.Value(0)).current;
 
+  // Gravidade e movimento do pássaro
+  useEffect(() => {
+    let animation;
+    if (!isGameOver) {
+      animation = setInterval(() => {
+        if (isFlying) {
+          // Quando o usuário está tocando na tela (subindo)
+          Animated.timing(birdRef, {
+            toValue: birdRef._value + FLY_SPEED,
+            duration: 30,
+            useNativeDriver: true,
+          }).start();
+        } else {
+          // Quando o usuário solta (gravidade age)
+          Animated.timing(birdRef, {
+            toValue: birdRef._value + GRAVITY,
+            duration: 30,
+            useNativeDriver: true,
+          }).start();
+        }
+      }, 30);
+    }
+
+    return () => clearInterval(animation);
+  }, [isFlying, isGameOver]);
+
+  // Movimento dos canos
   useEffect(() => {
     if (!isGameOver) {
-      // Animation for falling
-      Animated.loop(
-        Animated.sequence([
-          Animated.timing(fallAnim, {
-            toValue: 1,
-            duration: 1000,
-            useNativeDriver: false,
-          }),
-          Animated.timing(fallAnim, {
-            toValue: 0,
-            duration: 1000,
-            useNativeDriver: false,
-          }),
-        ])
-      ).start();
-
-      const birdFall = Animated.loop(
-        Animated.timing(birdRef, {
-          toValue: birdRef._value + GRAVITY,
-          duration: 30,
-          useNativeDriver: true,
-        })
-      );
-
-      birdFall.start();
-
       const pipeAnimation = Animated.loop(
         Animated.sequence([
           Animated.timing(pipeRef, {
@@ -62,34 +61,13 @@ const FlappyBird = () => {
           }),
         ])
       );
-
       pipeAnimation.start();
 
-      return () => {
-        birdFall.stop();
-        pipeAnimation.stop();
-      };
+      return () => pipeAnimation.stop();
     }
   }, [isGameOver]);
 
-  useEffect(() => {
-    if (isGameOver) {
-      birdRef.setValue(height / 2 - BIRD_SIZE / 2);
-      pipeRef.setValue(width);
-      setScore(0);
-    }
-  }, [isGameOver]);
-
-  const jump = () => {
-    if (!isGameOver) {
-      Animated.timing(birdRef, {
-        toValue: birdRef._value + JUMP,
-        duration: 200,
-        useNativeDriver: true,
-      }).start();
-    }
-  };
-
+  // Detecção de colisão e pontuação
   useEffect(() => {
     const interval = setInterval(() => {
       const birdPos = birdRef._value;
@@ -108,31 +86,55 @@ const FlappyBird = () => {
     return () => clearInterval(interval);
   }, [birdRef, pipeRef, isGameOver]);
 
+  // Reiniciar o jogo após Game Over
   const endGame = () => {
     setIsGameOver(true);
-    Alert.alert('Game Over', `Your score: ${score}`);
+    Alert.alert('Game Over', `Your score: ${score}`, [
+      {
+        text: 'Restart',
+        onPress: () => {
+          setIsGameOver(false);
+          birdRef.setValue(height / 2 - BIRD_SIZE / 2);
+          pipeRef.setValue(width);
+          setScore(0);
+        },
+      },
+    ]);
+  };
+
+  // Eventos de toque para voar
+  const handlePressIn = () => {
+    setIsFlying(true);
+  };
+
+  const handlePressOut = () => {
+    setIsFlying(false);
   };
 
   return (
-    <View style={styles.container}>
-      <Animated.View
-        style={[
-          styles.bird,
-          { transform: [{ translateY: birdRef }] },
-        ]}
-      />
-      <Animated.View
-        style={[
-          styles.pipe,
-          { transform: [{ translateX: pipeRef }] },
-          { height: PIPE_HEIGHT },
-        ]}
-      />
-      <TouchableOpacity style={styles.button} onPress={jump}>
-        <Text style={styles.buttonText}>Jump</Text>
-      </TouchableOpacity>
-      <Text style={styles.score}>Score: {score}</Text>
-    </View>
+    <TouchableWithoutFeedback onPressIn={handlePressIn} onPressOut={handlePressOut}>
+      <View style={styles.container}>
+        {/* Pássaro */}
+        <Animated.View
+          style={[
+            styles.bird,
+            { transform: [{ translateY: birdRef }] },
+          ]}
+        />
+
+        {/* Cano */}
+        <Animated.View
+          style={[
+            styles.pipe,
+            { transform: [{ translateX: pipeRef }] },
+            { height: PIPE_HEIGHT },
+          ]}
+        />
+
+        {/* Pontuação */}
+        <Text style={styles.score}>Score: {score}</Text>
+      </View>
+    </TouchableWithoutFeedback>
   );
 };
 
@@ -154,17 +156,6 @@ const styles = StyleSheet.create({
     backgroundColor: '#228B22',
     position: 'absolute',
     bottom: 0,
-  },
-  button: {
-    position: 'absolute',
-    bottom: 50,
-    padding: 10,
-    backgroundColor: '#ff5722',
-    borderRadius: 5,
-  },
-  buttonText: {
-    color: '#fff',
-    fontSize: 20,
   },
   score: {
     position: 'absolute',
