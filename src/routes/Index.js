@@ -8,6 +8,10 @@ import JogodaCobrinha from "../pages/JogodaCobrinha"
 import JogoDaMemoria from "../pages/JogoDaMemoria"
 import Login from "../pages/Login"
 import LoginScreen from "../pages/LoginScreen";
+import Game2048 from "../pages/Game2048";
+import JogodeReflexos from "../pages/JogodeReflexos";
+import PingPong from "../pages/PingPong";
+import FlappyBird from "../pages/flappybird";
 
 const Tab = createBottomTabNavigator();
 
@@ -20,7 +24,11 @@ export default function Index() {
         <Tab.Screen name="JogodaCobrinha " component={JogodaCobrinha} />
         <Tab.Screen name="JogoDaMemoria " component={JogoDaMemoria} />
         <Tab.Screen name="Login " component={Login} />
+        <Tab.Screen name="PingPong " component={PingPong} />
+        <Tab.Screen name="JogodeReflexos " component={JogodeReflexos} />
+        <Tab.Screen name="Game2048 " component={Game2048} />
         <Tab.Screen name="LoginScreen " component={LoginScreen} />
+        <Tab.Screen name="FlappyBird " component={FlappyBird} />
       </Tab.Navigator>
       </NavigationContainer>
     

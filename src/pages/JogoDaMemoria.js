@@ -1,8 +1,8 @@
 import React, { useState, useEffect } from 'react';
-import { View, Text, StyleSheet, TouchableOpacity, Alert } from 'react-native';
+import { View, Text, StyleSheet, TouchableOpacity, Alert, Image } from 'react-native';
 
 const generateCards = () => {
-  const cards = ['🍎', '🍌', '🍇', '🍓', '🍉', '🍒', '🍑', '🍍'];
+  const cards = ['🍎', '🍌', '🍇', '🍓', '🍉', '🍒', '🍑', '🍍', '🥝', '🥭','🥥','🫐','🍊','🍐','🍋‍🟩','🍋' ];
   const duplicatedCards = [...cards, ...cards];
   return duplicatedCards.sort(() => 0.5 - Math.random());
 };
@@ -43,12 +43,20 @@ const App = () => {
     const isFlipped = selectedCards.includes(index) || matchedCards.includes(index);
     return (
       <TouchableOpacity
-        key={index}
-        style={styles.card}
-        onPress={() => handleCardPress(index)}
-      >
-        <Text style={styles.cardText}>{isFlipped ? item : '❓'}</Text>
-      </TouchableOpacity>
+  key={index}
+  style={styles.card}
+  onPress={() => handleCardPress(index)}
+>
+  {isFlipped ? (
+    <Text style={styles.cardText}>{item}</Text>
+  ) : (
+    <Image 
+      source={require('../images/galaxy.jpg')} // Caminho local da imagem
+      style={styles.cardImage}
+    />
+  )}
+</TouchableOpacity>
+
     );
   };
 
@@ -69,30 +77,37 @@ const styles = StyleSheet.create({
     flex: 1,
     justifyContent: 'center',
     alignItems: 'center',
-    backgroundColor: '#fff',
+    backgroundColor: 'black',
   },
   board: {
     flexDirection: 'row',
     flexWrap: 'wrap',
-    width: 320,
+    width: 390,
   },
   card: {
-    width: 75,
-    height: 75,
-    justifyContent: 'center',
+    width: 80,
+    height: 80,
     alignItems: 'center',
-    margin: 5,
+    justifyContent: 'center',
+    margin: 2.5,
     backgroundColor: '#333',
-    borderRadius: 5,
+    borderRadius: 10,
+    marginLeft: 13,
   },
+  cardImage: {
+  width: 80,
+  height: 80,
+  borderRadius: 10,
+  },
+  
   cardText: {
     fontSize: 36,
     color: '#red',
   },
   resetButton: {
-    marginTop: 20,
+    marginTop: 40,
     padding: 10,
-    backgroundColor: '#555',
+    backgroundColor: '#4B0082',
     borderRadius: 5,
   },
   resetButtonText: {

@@ -4,7 +4,7 @@ import * as ImagePicker from 'expo-image-picker';
 
 export default function Login() {
   const [avatar, setAvatar] = useState(null);
-  const translateY = useRef(new Animated.Value(50)).current; // Valor inicial abaixo da tela
+  const translateY = useRef(new Animated.Value(50)).current;
 
   useEffect(() => {
     // Animação de subida ao carregar a página
@@ -46,7 +46,13 @@ export default function Login() {
         source={require('../images/foto.png')} 
         style={styles.background} 
       >
+        
+        {/* Card de Sombra */}
+        
+        <View style={styles.shadowCard}></View>
+                {/* Card Principal */}
         <View style={styles.viewCds}>
+           <Animated.View style={[styles.viewCds, { transform: [{ translateY }] }]}>
           <Image 
             source={avatar ? { uri: avatar } : require('../images/image.png')} 
             style={styles.avatar} 
@@ -79,6 +85,7 @@ export default function Login() {
           >
             <Text style={styles.cdsButtonText}>Get Started</Text>
           </TouchableOpacity>
+          </Animated.View>
         </View>
       </ImageBackground>
     </View>
@@ -135,8 +142,9 @@ const styles = StyleSheet.create({
     margin: 5,
     borderRadius: 10,
     justifyContent: "center",
-  
-    color: 'white',
+    backgroundColor: '#fff',
+    color: 'black',
+    paddingHorizontal: 10,
   },
 
   BtnCadastro: {
@@ -160,10 +168,25 @@ const styles = StyleSheet.create({
   viewCds: {
     height: '80%',
     width: '90%',
-    marginTop: 200, // Ajuste para mover o card mais para baixo
-    backgroundColor: 'rgba(255, 255, 255, 0.8)', // Cor de fundo branca com 80% de opacidade
+    backgroundColor: 'yellow', // Cor sólida amarela
     borderRadius: 10,
     alignItems: 'center',
     justifyContent: 'center',
+    zIndex: 2, // Card principal, na frente da sombra
+    position: 'absolute', // Para sobrepor com o card de sombra
+    top: 200, // Ajuste vertical
+    left: 15, // Ajuste horizontal para sobrepor ligeiramente
   },
+
+  shadowCard: {
+    position: 'absolute',
+    height: '80%',
+    width: '90%',
+    backgroundColor: 'black', // Cor de sombra preta
+    borderRadius: 10,
+    top: 210,  // Deslocamento para simular a sombra (mais abaixo)
+    left: 25,  // Deslocamento lateral para simular a sombra (mais à direita)
+    zIndex: 1,  // Fica atrás do card principal
+    opacity: 0.5, // Transparência para efeito de sombra
+  }
 });
