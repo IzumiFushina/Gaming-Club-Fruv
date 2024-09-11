@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { View, Text, StyleSheet, TouchableOpacity, Alert, Image } from 'react-native';
 
 const generateCards = () => {
-  const cards = ['🍎', '🍌', '🍇', '🍓', '🍉', '🍒', '🍑', '🍍', '🥝', '🥭','🥥','🫐','🍊','🍐','🍋‍🟩','🍋' ];
+  const cards = ['🍎', '🍌', '🍇', '🍓', '🍉', '🍒', '🍑', '🍍', '🥝', '🥭','🥥','🍊','🍐','🍋' ];
   const duplicatedCards = [...cards, ...cards];
   return duplicatedCards.sort(() => 0.5 - Math.random());
 };
@@ -51,7 +51,7 @@ const App = () => {
     <Text style={styles.cardText}>{item}</Text>
   ) : (
     <Image 
-      source={require('../images/galaxy.jpg')} // Caminho local da imagem
+      source={require('../images/foto13.png')} // Caminho local da imagem
       style={styles.cardImage}
     />
   )}
@@ -77,7 +77,7 @@ const styles = StyleSheet.create({
     flex: 1,
     justifyContent: 'center',
     alignItems: 'center',
-    backgroundColor: 'black',
+    backgroundColor: '#fdf5cd',
   },
   board: {
     flexDirection: 'row',
@@ -90,7 +90,7 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     justifyContent: 'center',
     margin: 2.5,
-    backgroundColor: '#333',
+    backgroundColor: '#f6db6e',
     borderRadius: 10,
     marginLeft: 13,
   },
@@ -105,9 +105,9 @@ const styles = StyleSheet.create({
     color: '#red',
   },
   resetButton: {
-    marginTop: 40,
-    padding: 10,
-    backgroundColor: '#4B0082',
+    marginTop: 20,
+    padding: 15,
+    backgroundColor: '#f8cf54',
     borderRadius: 5,
   },
   resetButtonText: {

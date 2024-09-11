@@ -2,20 +2,22 @@ import React, { useState, useEffect, useRef } from 'react';
 import { View, Image, StyleSheet, Alert, Text, TextInput, TouchableOpacity, Animated, ImageBackground } from 'react-native';
 import * as ImagePicker from 'expo-image-picker';
 import Feather from '@expo/vector-icons/Feather';
+import AntDesign from '@expo/vector-icons/AntDesign';
+import Entypo from '@expo/vector-icons/Entypo';
+import Fontisto from '@expo/vector-icons/Fontisto';
+
 
 export default function Login() {
   const [avatar, setAvatar] = useState(null);
   const translateY = useRef(new Animated.Value(50)).current;
 
   useEffect(() => {
-    // Animação de subida ao carregar a página
     Animated.timing(translateY, {
       toValue: 0, 
       duration: 1000, 
       useNativeDriver: true,
     }).start();
 
-    // Pedir permissão para acessar a galeria de fotos
     (async () => {
       const { status } = await ImagePicker.requestMediaLibraryPermissionsAsync();
       if (status !== 'granted') {
@@ -44,58 +46,80 @@ export default function Login() {
   return (
     <View style={styles.container}>
       <ImageBackground 
-        source={require('../images/foto4.png')} 
+        source={require('../images/foto12.png')} 
         style={styles.background} 
       >
-        {/* Card de Sombra */}
         <Animated.View style={[styles.shadowCard, { transform: [{ translateY }] }]} />
-        
-        {/* Card Principal */}
         <Animated.View style={[styles.viewCds, { transform: [{ translateY }] }]}>
-          {/* Fundo da imagem dentro do card */}
           <ImageBackground
-            source={avatar ? { uri: avatar } : require('../images/foto10.png')} 
+              source={require('../images/foto10.png')} 
             style={styles.cardBackground}
           >
-            {/* Ícone no canto superior direito */}
             <TouchableOpacity style={styles.closeIcon}>
               <Feather name="x" size={24} color="black" />
             </TouchableOpacity>
-  
-            {/* Inputs e Botões na frente da imagem */}
+
             <Image 
-              source={require('../images/foto3.png')} 
+              source={avatar ? { uri: avatar } : require('../images/foto13.png')}
               style={styles.avatar} 
             />
             <TouchableOpacity style={styles.avatarButton} onPress={pickImage}>
               <Text style={styles.avatarButtonText}>Trocar Avatar</Text>
             </TouchableOpacity>
-            
-            {/* Inputs animados */}
+
             <Animated.View style={{ transform: [{ translateY }] }}>
+            <Text>Nickname:</Text>
+              <View style={styles.inputContainer}>
+                <AntDesign name="user" size={24} color="black" style={styles.iconStyle} />
+                <TextInput
+                  style={styles.InputName}
+                  placeholder="Nickname:"
+                  placeholderTextColor="gray"
+                />
+              </View>
+              <Text>E-mail:</Text>
+              <View style={styles.inputContainer}>
+              <Fontisto name="email" size={24} color="black" />
               <TextInput
                 style={styles.InputName}
-                placeholder="Nickname"
+                placeholder="E-mail:"
               />
+              </View>
+              <Text>Senha:</Text>
+              <View style={styles.inputContainer}>
+              <AntDesign name="staro" size={24} color="black" />
               <TextInput
                 style={styles.InputName}
-                placeholder="E-mail"
-              />
-              <TextInput
-                style={styles.InputName}
-                placeholder="Senha"
+                placeholder="Senha:"
                 secureTextEntry={true}
               />
+              </View>
+              <Text>Confirmar senha:</Text>
+              <View style={styles.inputContainer}>
+              <AntDesign name="star" size={24} color="black" />
               <TextInput
                 style={styles.InputName}
-                placeholder="Repita sua senha"
+                placeholder="Confirmar Senha:"
                 secureTextEntry={true}
               />
+              </View>
+
+   {/* Ícones do Facebook alinhados lado a lado */}
+   <View style={styles.iconRow}>
+    <TouchableOpacity style={styles.facebookeInstaIcon}>
+      <Entypo name="facebook-with-circle" size={27} color="black" />
+    </TouchableOpacity>
+    <TouchableOpacity style={styles.facebookeInstaIcon}>
+    <Entypo name="instagram-with-circle" size={27} color="black" />
+    </TouchableOpacity>
+  </View>
+
               <TouchableOpacity
                 style={styles.BtnCadastro}
                 onPress={() => Alert.alert('Cadastro Iniciado')}
               >
-                <Text style={styles.cdsButtonText}>Get Started</Text>
+                <Text style={styles.cdsButtonText}>Login</Text>
+            
               </TouchableOpacity>
             </Animated.View>
           </ImageBackground>
@@ -103,42 +127,47 @@ export default function Login() {
       </ImageBackground>
     </View>
   );
-  
-  
 }
 
 const styles = StyleSheet.create({
   container: {
     flex: 1,
     backgroundColor: 'white',
-    alignItems: 'center',
-    justifyContent: 'center',
     padding: 0,
     margin: 0,
   },
+  iconRow: {
+    flexDirection: 'row',
+    justifyContent: 'center',  // Centraliza os ícones horizontalmente
+    marginVertical: 20,  // Espaçamento entre os ícones e o restante do conteúdo
+  },
+  facebookeInstaIcon: {
+    marginHorizontal: 10,  // Espaçamento entre os ícones
+  },
+  
+  
   closeIcon: {
     position: 'absolute',
-    top: 10,   
-    right: 10, 
-    zIndex: 3, 
+    top: "3%",
+    right: "5%",
+    
   },
   avatar: {
     width: 90,
     height: 90,
-    borderRadius: 50,
+    borderRadius: 60,
     marginBottom: 10,
     borderWidth: 2,
     borderColor: '#000',
   },
-
   avatarButton: {
-    backgroundColor: '#fadb42', // Cor mais elegante
-    paddingVertical: 12, // Aumentando um pouco o tamanho vertical
-    paddingHorizontal: 20,
-    marginBottom: 10,
+    backgroundColor: '#fadb42',
+    paddingVertical: 5,
+    paddingHorizontal: 10,
+    marginBottom: 5,
     alignSelf: 'center',
-    borderRadius: 8, // Leve arredondamento
-    shadowColor: "#000", // Sombra mais suave
+    borderRadius: 8,
+    shadowColor: "#000",
     shadowOffset: {
       width: 0,
       height: 2,
@@ -146,16 +175,14 @@ const styles = StyleSheet.create({
     shadowOpacity: 0.2,
     shadowRadius: 3.5,
     elevation: 6,
-    flexDirection: 'row', // Para alinhar o texto com ícones se adicionados
-    justifyContent: 'center', // Centralizando o conteúdo
+    flexDirection: 'row',
+    justifyContent: 'center',
   },
-
   avatarButtonText: {
     color: '#fff',
     fontSize: 16,
     fontWeight: 'bold',
   },
-
   background: {
     flex: 1,
     width: '100%',
@@ -165,26 +192,31 @@ const styles = StyleSheet.create({
     margin: 0,
     padding: 0,
   },
-
   cardBackground: {
     flex: 1,
     width: '100%',
     height: '100%',
     alignItems: 'center',
     justifyContent: 'center',
+    borderRadius: 25, // Arredondando bordas do fundo do card
+    overflow: 'hidden', // Garante que o conteúdo do ImageBackground será cortado
   },
-
+  inputContainer: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    borderBottomWidth: 1,
+    borderBottomColor: 'black',
+    marginBottom: 10,
+  },
+  iconStyle: {
+    marginRight: 10,
+  },
   InputName: {
-    width: 300,
-    height: 50,
-    margin: 5,
-    borderRadius: 10,
-    justifyContent: "center",
-    backgroundColor: '#fff',
+    width: 260,
+    height: 35,
     color: 'black',
-    paddingHorizontal: 10,
+    paddingHorizontal: 12,
   },
-
   BtnCadastro: {
     alignSelf: "center",
     alignItems: "center",
@@ -192,10 +224,9 @@ const styles = StyleSheet.create({
     height: 50,
     width: "70%",
     marginTop: 20,
-    backgroundColor: "#fadb42", // Cor elegante do botão com gradiente
-
-    borderRadius: 8, // Leve arredondamento
-    shadowColor: "#000", // Sombra suave
+    backgroundColor: "#fadb42",
+    borderRadius: 8,
+    shadowColor: "#000",
     shadowOffset: {
       width: 0,
       height: 2,
@@ -204,37 +235,36 @@ const styles = StyleSheet.create({
     shadowRadius: 3.5,
     elevation: 6,
   },
-
   cdsButtonText: {
     color: 'white',
     fontSize: 18,
     fontWeight: 'bold',
-    letterSpacing: 1, // Adicionando espaçamento entre as letras
+    letterSpacing: 15,
   },
-
   viewCds: {
-    height: '65%',
+    height: '80%',
     width: '90%',
-    backgroundColor: 'rgba(0, 0, 0, 0.5)', // Para permitir que a imagem de fundo seja visível
+    backgroundColor: 'rgba(0, 0, 0, 0.5)',
     alignItems: 'center',
     justifyContent: 'center',
-    zIndex: 2, 
-    position: 'absolute', 
-    top: 200, 
-    left: 15,
-    borderWidth: 2, 
-    borderColor: 'black', 
+    zIndex: 2,
+    position: 'absolute',
+    top: "5%",
+    left: "4%",
+    borderWidth: 2.5,
+    borderColor: 'black',
+    borderRadius: 25, // Arredondando bordas do card principal
+    overflow: 'hidden', // Garante que o conteúdo será cortado dentro do card
   },
-
   shadowCard: {
     position: 'absolute',
-    height: '65%',
+    height: '80%',
     width: '90%',
     backgroundColor: '#ffed95',
     borderColor: "black",
-    borderWidth: 2,
-    top: 210,  
-    left: 25,
-    zIndex: 1,
-  }
+    borderWidth: 2.5,
+    top: "7%",
+    left: "7%",
+    borderRadius: 20, // Arredondando bordas do card de sombra
+  },
 });

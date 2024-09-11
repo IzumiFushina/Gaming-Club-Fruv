@@ -2,6 +2,11 @@ import React, { useState, useEffect } from "react";
 import { Text, View, Animated, TouchableOpacity, ImageBackground } from "react-native";
 import { useFonts } from "expo-font";
 import Index from "./src/routes/Index";
+import { registerRootComponent } from 'expo';
+
+// O registerRootComponent garante que o App é registrado corretamente.
+registerRootComponent(Index);
+
 
 
 export default function App() {
@@ -37,7 +42,7 @@ export default function App() {
         </View>
       ) : (
         <ImageBackground
-          source={require("./src/images/foto2.png")}
+          source={require("./src/images/foto14.png")}
           style={{
             flex: 1,
             justifyContent: 'center',

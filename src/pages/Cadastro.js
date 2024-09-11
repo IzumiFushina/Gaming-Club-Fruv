@@ -1,20 +1,21 @@
 import React, { useState, useEffect, useRef } from 'react';
 import { View, Image, StyleSheet, Alert, Text, TextInput, TouchableOpacity, Animated, ImageBackground } from 'react-native';
 import * as ImagePicker from 'expo-image-picker';
+import Feather from '@expo/vector-icons/Feather';
+import AntDesign from '@expo/vector-icons/AntDesign';
+import Fontisto from '@expo/vector-icons/Fontisto';
 
-export default function Cadastro() {
+export default function Login() {
   const [avatar, setAvatar] = useState(null);
-  const translateY = useRef(new Animated.Value(50)).current; // Valor inicial abaixo da tela
+  const translateY = useRef(new Animated.Value(50)).current;
 
   useEffect(() => {
-    // Animação de subida ao carregar a página
     Animated.timing(translateY, {
       toValue: 0, 
       duration: 1000, 
       useNativeDriver: true,
     }).start();
 
-    // Pedir permissão para acessar a galeria de fotos
     (async () => {
       const { status } = await ImagePicker.requestMediaLibraryPermissionsAsync();
       if (status !== 'granted') {
@@ -42,86 +43,125 @@ export default function Cadastro() {
 
   return (
     <View style={styles.container}>
-            <ImageBackground 
-        source={require('../images/fundo.png')} 
+      <ImageBackground 
+        source={require('../images/foto11.png')} 
         style={styles.background} 
-        
       >
-      <View style={styles.viewCds}>
-      <Image 
-        source={avatar ? { uri: avatar } : require('../images/image.png')} 
-        style={styles.avatar} 
-      />
-      <TouchableOpacity style={styles.avatarButton} onPress={pickImage}>
-        <Text style={styles.avatarButtonText}>Trocar Avatar</Text>
-      </TouchableOpacity>
-      
-        <TextInput
-          style={styles.InputName}
-          placeholder="Nickname"
-        />
-        <TextInput
-          style={styles.InputName}
-          placeholder="E-mail"
-        />
-        <TextInput
-          style={styles.InputName}
-          placeholder="Senha"
-          secureTextEntry={true}
-        />
-        <TextInput
-          style={styles.InputName}
-          placeholder="Repita sua senha"
-          secureTextEntry={true}
-        />
-        <TouchableOpacity
-          style={styles.BtnCadastro}
-          onPress={() => Alert.alert('Cadastro Iniciado')}
-        >
-          <Text style={styles.cdsButtonText}>Get Started</Text>
-        </TouchableOpacity>
-        </View>
+        <Animated.View style={[styles.shadowCard, { transform: [{ translateY }] }]} />
+        <Animated.View style={[styles.viewCds, { transform: [{ translateY }] }]}>
+          <ImageBackground
+              source={require('../images/foto10.png')} 
+            style={styles.cardBackground}
+          >
+            <TouchableOpacity style={styles.closeIcon}>
+              <Feather name="x" size={24} color="black" />
+            </TouchableOpacity>
+
+            <Image 
+              source={avatar ? { uri: avatar } : require('../images/image.png')}
+              style={styles.avatar} 
+            />
+            <TouchableOpacity style={styles.avatarButton} onPress={pickImage}>
+              <Text style={styles.avatarButtonText}>Trocar Avatar</Text>
+            </TouchableOpacity>
+
+            <Animated.View style={{ transform: [{ translateY }] }}>
+            <Text>Nickname:</Text>
+              <View style={styles.inputContainer}>
+                <AntDesign name="user" size={24} color="black" style={styles.iconStyle} />
+                <TextInput
+                  style={styles.InputName}
+                  placeholder="Nickname:"
+                  placeholderTextColor="gray"
+                />
+              </View>
+              <Text>E-mail:</Text>
+              <View style={styles.inputContainer}>
+              <Fontisto name="email" size={24} color="black" />
+              <TextInput
+                style={styles.InputName}
+                placeholder="E-mail:"
+              />
+              </View>
+              <Text>Senha:</Text>
+              <View style={styles.inputContainer}>
+              <AntDesign name="staro" size={24} color="black" />
+              <TextInput
+                style={styles.InputName}
+                placeholder="Senha:"
+                secureTextEntry={true}
+              />
+              </View>
+              <Text>Confirmar senha:</Text>
+              <View style={styles.inputContainer}>
+              <AntDesign name="star" size={24} color="black" />
+              <TextInput
+                style={styles.InputName}
+                placeholder="Confirmar Senha:"
+                secureTextEntry={true}
+              />
+              </View>
+              <TouchableOpacity
+                style={styles.BtnCadastro}
+                onPress={() => Alert.alert('Cadastro Iniciado')}
+              >
+                <Text style={styles.cdsButtonText}>Get Started</Text>
+              </TouchableOpacity>
+            </Animated.View>
+          </ImageBackground>
+        </Animated.View>
       </ImageBackground>
     </View>
   );
 }
 
+
 const styles = StyleSheet.create({
   container: {
     flex: 1,
     backgroundColor: 'white',
-    alignItems: 'center',
-    justifyContent: 'center',
     padding: 0,
     margin: 0,
   },
-
-  avatar: {
-    width: 100,
-    height: 100,
-    borderRadius: 50,
-    marginBottom: 20,
-    borderWidth: 2,
-    borderColor: '#ddd',
+  closeIcon: {
+    position: 'absolute',
+    top: 10,
+    right: 10,
+    zIndex: 3,
   },
-
+  avatar: {
+    width: 90,
+    height: 90,
+    borderRadius: 60,
+    marginBottom: 10,
+    borderWidth: 2,
+    borderColor: '#000',
+  },
   avatarButton: {
-    backgroundColor: '#652E79',
+    backgroundColor: '#fadb42',
     paddingVertical: 5,
     paddingHorizontal: 10,
-    borderRadius: 5,
-    marginBottom: 10,
+    marginBottom: 5,
     alignSelf: 'center',
+    borderRadius: 8,
+    shadowColor: "#000",
+    shadowOffset: {
+      width: 0,
+      height: 2,
+    },
+    shadowOpacity: 0.2,
+    shadowRadius: 3.5,
+    elevation: 6,
+    flexDirection: 'row',
+    justifyContent: 'center',
   },
-
   avatarButtonText: {
     color: '#fff',
     fontSize: 16,
     fontWeight: 'bold',
   },
-
   background: {
-    flex: 1, // Use flex to make sure the background covers the whole view
+    flex: 1,
     width: '100%',
     height: '100%',
     alignItems: 'center',
@@ -129,43 +169,74 @@ const styles = StyleSheet.create({
     margin: 0,
     padding: 0,
   },
-
-  InputName: {
-    width: 300,
-    height: 50,
-    margin: 5,
-    borderRadius: 10,
-    justifyContent: "center",
-    backgroundColor: '#4B0082',
-    color: 'white', // Added color to make text visible on dark background
+  cardBackground: {
+    flex: 1,
+    width: '100%',
+    height: '100%',
+    alignItems: 'center',
+    justifyContent: 'center',
   },
-
+  inputContainer: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    borderBottomWidth: 1,
+    borderBottomColor: 'black',
+    marginBottom: 10,
+  },
+  iconStyle: {
+    marginRight: 10,
+  },
+  InputName: {
+    width: 260,
+    height: 35,
+    color: 'black',
+    paddingHorizontal: 12,
+  },
   BtnCadastro: {
     alignSelf: "center",
     alignItems: "center",
     justifyContent: "center",
-    height: 45,
-    width: 280,
-    marginTop: 30,
-    backgroundColor: "#4B0082",
-    borderRadius: 10,
-    borderBottomWidth: 1,
-    borderColor: "black",
+    height: 50,
+    width: "70%",
+    marginTop: 20,
+    backgroundColor: "#fadb42",
+    borderRadius: 8,
+    shadowColor: "#000",
+    shadowOffset: {
+      width: 0,
+      height: 2,
+    },
+    shadowOpacity: 0.2,
+    shadowRadius: 3.5,
+    elevation: 6,
   },
-
   cdsButtonText: {
-    color: 'white', // Ensure button text is visible
-    fontSize: 16,
+    color: 'white',
+    fontSize: 18,
+    fontWeight: 'bold',
+    letterSpacing: 1,
   },
-
   viewCds: {
-   height: '75%',
-   width: '90%',
-   marginBottom: 120,
-   backgroundColor: 'white',
-   borderRadius: 10,
-   alignItems: 'center',
-   justifyContent: 'center',
+    height: '70%',
+    width: '90%',
+    backgroundColor: 'rgba(0, 0, 0, 0.5)',
+    alignItems: 'center',
+    justifyContent: 'center',
+    zIndex: 2,
+    position: 'absolute',
+    top: "5%",
+    left: "4%",
+    borderWidth: 2.5,
+    borderColor: 'black',
   },
-
+  shadowCard: {
+    position: 'absolute',
+    height: '70%',
+    width: '90%',
+    backgroundColor: '#ffed95',
+    borderColor: "black",
+    borderWidth: 2.5,
+    top: "7%",
+    left: "7%",
+  }
 });

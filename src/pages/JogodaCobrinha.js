@@ -112,7 +112,7 @@ const SnakeGame = () => {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: '#1e1e1e',
+    backgroundColor: '#9acef8',
     alignItems: 'center',
     justifyContent: 'center',
     padding: 20,
@@ -120,15 +120,15 @@ const styles = StyleSheet.create({
   score: {
     fontSize: 24,
     fontWeight: 'bold',
-    color: '#fff',
+    color: '#5561d3',
     marginBottom: 20,
   },
   board: {
     width: BOARD_SIZE,
     height: BOARD_SIZE,
-    backgroundColor: '#333',
+    backgroundColor: '#d8bbff',
     position: 'relative',
-    borderColor: '#555',
+    borderColor: '#ec86d1',
     borderWidth: 5,
   },
   snake: {
@@ -152,7 +152,7 @@ const styles = StyleSheet.create({
     marginTop: 20,
   },
   controlButton: {
-    backgroundColor: '#555',
+    backgroundColor: '#5561d3',
     padding: 15,
     borderRadius: 8,
   },
@@ -161,19 +161,19 @@ const styles = StyleSheet.create({
     fontSize: 16,
   },
   gameOver: {
-    fontSize: 32,
-    color: '#ff4d4d',
-    marginTop: 20,
+    fontSize: 30,
+    color: '#5561d3',
+    marginTop: 25,
     fontWeight: 'bold',
   },
   restartButton: {
-    backgroundColor: '#28a745',
+    backgroundColor: '#ec86d1',
     padding: 10,
     borderRadius: 8,
     marginTop: 20,
   },
   restartButtonText: {
-    color: '#fff',
+    color: '#5561d3',
     fontSize: 18,
     fontWeight: 'bold',
   },

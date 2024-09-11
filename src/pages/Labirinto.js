@@ -45,7 +45,7 @@ export default function Labirinto() {
       setPlayerPos({ row: newRow, col: newCol });
     }
 
-    // Se o jogador alcançou a saída
+    // Se o jogador alcançar a saída
     if (newRow === END_POSITION.row && newCol === END_POSITION.col) {
       Alert.alert('Parabéns!', 'Você encontrou a saída!');
       resetGame();
@@ -113,11 +113,12 @@ const styles = StyleSheet.create({
     flex: 1,
     justifyContent: 'center',
     alignItems: 'center',
-    backgroundColor: '#fff',
+    backgroundColor: '#fafafa',  // Cor de fundo clara
   },
   title: {
-    fontSize: 24,
+    fontSize: 26,
     marginBottom: 20,
+    color: '#6a5acd', // Cor roxa suave
   },
   maze: {
     marginBottom: 20,
@@ -129,33 +130,34 @@ const styles = StyleSheet.create({
     width: 50,
     height: 50,
     borderWidth: 1,
-    borderColor: '#000',
+    borderColor: '#ddd',
     justifyContent: 'center',
     alignItems: 'center',
   },
   playerCell: {
-    backgroundColor: '#ffeb3b',
+    backgroundColor: '#ffcccb',  // Rosa claro para o jogador
   },
   wallCell: {
-    backgroundColor: '#000',
+    backgroundColor: '#b0c4de',  // Azul pastel para as paredes
   },
   exitCell: {
-    backgroundColor: '#00ff00',
+    backgroundColor: '#98fb98',  // Verde pastel para a saída
   },
   playerText: {
     fontWeight: 'bold',
+    color: '#ffffff',
   },
   controls: {
     marginTop: 20,
   },
   controlButton: {
-    backgroundColor: '#008CBA',
-    padding: 10,
+    backgroundColor: '#87cefa',  // Azul pastel para os botões
+    padding: 12,
     margin: 5,
-    borderRadius: 5,
+    borderRadius: 10,
   },
   controlText: {
-    color: '#fff',
+    color: '#ffffff',
     fontSize: 16,
   },
 });

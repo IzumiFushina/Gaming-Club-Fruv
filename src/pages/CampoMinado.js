@@ -9,7 +9,6 @@ const generateBoard = () => {
     .fill(null)
     .map(() => Array(BOARD_SIZE).fill({ isRevealed: false, isMine: false, neighboringMines: 0 }));
 
-  // Plant mines
   let minesPlanted = 0;
   while (minesPlanted < MINES_COUNT) {
     const row = Math.floor(Math.random() * BOARD_SIZE);
@@ -21,7 +20,6 @@ const generateBoard = () => {
     }
   }
 
-  // Calculate neighboring mines
   for (let row = 0; row < BOARD_SIZE; row++) {
     for (let col = 0; col < BOARD_SIZE; col++) {
       if (!board[row][col].isMine) {
@@ -136,7 +134,7 @@ const App = () => {
         key={`${row}-${col}`}
         style={[
           styles.square,
-          { backgroundColor: square.isRevealed ? '#ddd' : '#999' },
+          { backgroundColor: square.isRevealed ? (square.isMine ? '#f4a261' : 'gray') : 'white' },
         ]}
         onPress={() => handleSquarePress(row, col)}
       >
@@ -166,12 +164,14 @@ const styles = StyleSheet.create({
     flex: 1,
     justifyContent: 'center',
     alignItems: 'center',
-    backgroundColor: '#fff',
+    backgroundColor: '#7ed957',
   },
   board: {
     flexDirection: 'column',
-    backgroundColor: '#333',
-    padding: 5,
+    backgroundColor: '',
+    padding: 8,
+    borderWidth: 8,
+    borderColor: '#00bf63',
   },
   row: {
     flexDirection: 'row',
@@ -181,22 +181,25 @@ const styles = StyleSheet.create({
     height: 40,
     justifyContent: 'center',
     alignItems: 'center',
-    borderWidth: 1,
-    borderColor: '#555',
+    borderWidth: 2,
+    borderColor: '#c1ff72',
   },
   squareText: {
     fontSize: 18,
-    fontWeight: 'bold',
+    fontFamily: 'Courier', // Escolha uma fonte que imite o estilo pixelado
+    color: 'black',
   },
   resetButton: {
     marginTop: 20,
     padding: 10,
-    backgroundColor: '#555',
-    borderRadius: 5,
+    backgroundColor: '#00bf63',
+    borderRadius: 8,
   },
   resetButtonText: {
     color: '#fff',
     fontWeight: 'bold',
+    fontFamily: 'Courier',
+    fontSize: 16,
   },
 });
 

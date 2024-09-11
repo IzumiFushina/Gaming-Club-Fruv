@@ -39,7 +39,7 @@ export default function JogodeReflexos() {
       <TouchableOpacity
         style={[
           styles.gameArea,
-          { backgroundColor: gameState === 'ready' ? 'green' : 'red' }
+          { backgroundColor: gameState === 'ready' ? '#00FF00' : '#FF6347' } // Verde claro e vermelho tomate
         ]}
         onPress={handlePress}
       >
@@ -64,32 +64,39 @@ const styles = StyleSheet.create({
     flex: 1,
     justifyContent: 'center',
     alignItems: 'center',
-    backgroundColor: '#fff',
+    backgroundColor: '#FFF8DC', // Fundo branco amarelado claro
   },
   gameArea: {
     width: 300,
     height: 300,
     justifyContent: 'center',
     alignItems: 'center',
-    borderRadius: 10,
+    borderRadius: 0, // Mantém bordas retas para efeito pixelado
+    borderWidth: 4,
+    borderColor: '#FFD700', // Bordas douradas
   },
   text: {
     fontSize: 24,
-    color: '#fff',
+    color: '#FFFFFF',
+    fontFamily: 'PressStart2P-Regular', // Fonte estilo pixel
   },
   reactionTime: {
     marginTop: 20,
     fontSize: 18,
-    color: '#333',
+    color: '#FF4500', // Laranja vibrante
+    fontFamily: 'PressStart2P-Regular', // Fonte pixelizada
   },
   button: {
     marginTop: 30,
     padding: 10,
-    backgroundColor: '#8f7a66',
-    borderRadius: 5,
+    backgroundColor: '#87CEFA', // Azul claro vibrante
+    borderRadius: 0, // Mantém bordas retas
+    borderWidth: 4,
+    borderColor: '#FFC0CB', // Rosa claro nas bordas
   },
   buttonText: {
-    color: '#fff',
+    color: '#FFFFFF',
     fontSize: 16,
+    fontFamily: 'PressStart2P-Regular', // Fonte pixelizada
   },
 });

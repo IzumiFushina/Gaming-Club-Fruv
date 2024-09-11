@@ -141,7 +141,7 @@ const styles = StyleSheet.create({
     flex: 1,
     justifyContent: 'center',
     alignItems: 'center',
-    backgroundColor: '#faf8ef',
+    backgroundColor: '#ff999a',
   },
   row: {
     flexDirection: 'row',
@@ -149,7 +149,7 @@ const styles = StyleSheet.create({
   cell: {
     width: 80,
     height: 80,
-    backgroundColor: '#cdc1b4',
+    backgroundColor: '#ffe8d4',
     margin: 5,
     justifyContent: 'center',
     alignItems: 'center',
