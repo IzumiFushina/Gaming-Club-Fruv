@@ -3,7 +3,9 @@ import { View, Image, StyleSheet, Alert, Text, TextInput, TouchableOpacity, Anim
 import * as ImagePicker from 'expo-image-picker';
 import Feather from '@expo/vector-icons/Feather';
 import AntDesign from '@expo/vector-icons/AntDesign';
+import Entypo from '@expo/vector-icons/Entypo';
 import Fontisto from '@expo/vector-icons/Fontisto';
+
 
 export default function Login() {
   const [avatar, setAvatar] = useState(null);
@@ -44,7 +46,7 @@ export default function Login() {
   return (
     <View style={styles.container}>
       <ImageBackground 
-        source={require('../images/foto11.png')} 
+        source={require('../images/foto12.png')} 
         style={styles.background} 
       >
         <Animated.View style={[styles.shadowCard, { transform: [{ translateY }] }]} />
@@ -58,7 +60,7 @@ export default function Login() {
             </TouchableOpacity>
 
             <Image 
-              source={avatar ? { uri: avatar } : require('../images/image.png')}
+              source={avatar ? { uri: avatar } : require('../images/foto13.png')}
               style={styles.avatar} 
             />
             <TouchableOpacity style={styles.avatarButton} onPress={pickImage}>
@@ -101,11 +103,23 @@ export default function Login() {
                 secureTextEntry={true}
               />
               </View>
+
+   {/* Ícones do Facebook alinhados lado a lado */}
+   <View style={styles.iconRow}>
+    <TouchableOpacity style={styles.facebookeInstaIcon}>
+      <Entypo name="facebook-with-circle" size={27} color="black" />
+    </TouchableOpacity>
+    <TouchableOpacity style={styles.facebookeInstaIcon}>
+    <Entypo name="instagram-with-circle" size={27} color="black" />
+    </TouchableOpacity>
+  </View>
+
               <TouchableOpacity
                 style={styles.BtnCadastro}
                 onPress={() => Alert.alert('Cadastro Iniciado')}
               >
-                <Text style={styles.cdsButtonText}>Get Started</Text>
+                <Text style={styles.cdsButtonText}>Cadastrar</Text>
+            
               </TouchableOpacity>
             </Animated.View>
           </ImageBackground>
@@ -115,7 +129,6 @@ export default function Login() {
   );
 }
 
-
 const styles = StyleSheet.create({
   container: {
     flex: 1,
@@ -123,11 +136,21 @@ const styles = StyleSheet.create({
     padding: 0,
     margin: 0,
   },
+  iconRow: {
+    flexDirection: 'row',
+    justifyContent: 'center', 
+    marginVertical: 20,  
+  },
+  facebookeInstaIcon: {
+    marginHorizontal: 10,  
+  },
+  
+  
   closeIcon: {
     position: 'absolute',
-    top: 10,
-    right: 10,
-    zIndex: 3,
+    top: "3%",
+    right: "5%",
+    
   },
   avatar: {
     width: 90,
@@ -175,6 +198,8 @@ const styles = StyleSheet.create({
     height: '100%',
     alignItems: 'center',
     justifyContent: 'center',
+    borderRadius: 25, 
+    overflow: 'hidden', 
   },
   inputContainer: {
     flexDirection: 'row',
@@ -214,10 +239,10 @@ const styles = StyleSheet.create({
     color: 'white',
     fontSize: 18,
     fontWeight: 'bold',
-    letterSpacing: 1,
+    letterSpacing: 15,
   },
   viewCds: {
-    height: '70%',
+    height: '80%',
     width: '90%',
     backgroundColor: 'rgba(0, 0, 0, 0.5)',
     alignItems: 'center',
@@ -228,15 +253,18 @@ const styles = StyleSheet.create({
     left: "4%",
     borderWidth: 2.5,
     borderColor: 'black',
+    borderRadius: 25, 
+    overflow: 'hidden', 
   },
   shadowCard: {
     position: 'absolute',
-    height: '70%',
+    height: '80%',
     width: '90%',
     backgroundColor: '#ffed95',
     borderColor: "black",
     borderWidth: 2.5,
     top: "7%",
     left: "7%",
-  }
+    borderRadius: 20, 
+  },
 });

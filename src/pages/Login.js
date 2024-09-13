@@ -63,9 +63,7 @@ export default function Login() {
               source={avatar ? { uri: avatar } : require('../images/foto13.png')}
               style={styles.avatar} 
             />
-            <TouchableOpacity style={styles.avatarButton} onPress={pickImage}>
-              <Text style={styles.avatarButtonText}>Trocar Avatar</Text>
-            </TouchableOpacity>
+         
 
             <Animated.View style={{ transform: [{ translateY }] }}>
             <Text>Nickname:</Text>
@@ -77,14 +75,7 @@ export default function Login() {
                   placeholderTextColor="gray"
                 />
               </View>
-              <Text>E-mail:</Text>
-              <View style={styles.inputContainer}>
-              <Fontisto name="email" size={24} color="black" />
-              <TextInput
-                style={styles.InputName}
-                placeholder="E-mail:"
-              />
-              </View>
+             
               <Text>Senha:</Text>
               <View style={styles.inputContainer}>
               <AntDesign name="staro" size={24} color="black" />
@@ -94,15 +85,7 @@ export default function Login() {
                 secureTextEntry={true}
               />
               </View>
-              <Text>Confirmar senha:</Text>
-              <View style={styles.inputContainer}>
-              <AntDesign name="star" size={24} color="black" />
-              <TextInput
-                style={styles.InputName}
-                placeholder="Confirmar Senha:"
-                secureTextEntry={true}
-              />
-              </View>
+            
 
    {/* Ícones do Facebook alinhados lado a lado */}
    <View style={styles.iconRow}>
@@ -138,24 +121,24 @@ const styles = StyleSheet.create({
   },
   iconRow: {
     flexDirection: 'row',
-    justifyContent: 'center',  // Centraliza os ícones horizontalmente
-    marginVertical: 20,  // Espaçamento entre os ícones e o restante do conteúdo
+    justifyContent: 'center',  
+    marginVertical: 20, 
   },
   facebookeInstaIcon: {
-    marginHorizontal: 10,  // Espaçamento entre os ícones
+    marginHorizontal: 10, 
   },
   
   
   closeIcon: {
     position: 'absolute',
-    top: "3%",
+    top: "1%",
     right: "5%",
     
   },
   avatar: {
-    width: 90,
-    height: 90,
-    borderRadius: 60,
+    width: "24%",
+    height: "20%",
+    borderRadius: 90,
     marginBottom: 10,
     borderWidth: 2,
     borderColor: '#000',
@@ -198,8 +181,8 @@ const styles = StyleSheet.create({
     height: '100%',
     alignItems: 'center',
     justifyContent: 'center',
-    borderRadius: 25, // Arredondando bordas do fundo do card
-    overflow: 'hidden', // Garante que o conteúdo do ImageBackground será cortado
+    borderRadius: 25,
+    overflow: 'hidden', 
   },
   inputContainer: {
     flexDirection: 'row',
@@ -242,7 +225,7 @@ const styles = StyleSheet.create({
     letterSpacing: 15,
   },
   viewCds: {
-    height: '80%',
+    height: '60%',
     width: '90%',
     backgroundColor: 'rgba(0, 0, 0, 0.5)',
     alignItems: 'center',
@@ -253,18 +236,18 @@ const styles = StyleSheet.create({
     left: "4%",
     borderWidth: 2.5,
     borderColor: 'black',
-    borderRadius: 25, // Arredondando bordas do card principal
-    overflow: 'hidden', // Garante que o conteúdo será cortado dentro do card
+    borderRadius: 25,
+    overflow: 'hidden',
   },
   shadowCard: {
     position: 'absolute',
-    height: '80%',
+    height: '60%',
     width: '90%',
     backgroundColor: '#ffed95',
     borderColor: "black",
     borderWidth: 2.5,
     top: "7%",
     left: "7%",
-    borderRadius: 20, // Arredondando bordas do card de sombra
+    borderRadius: 20,
   },
 });

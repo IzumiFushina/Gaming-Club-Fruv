@@ -4,10 +4,8 @@ import { useFonts } from "expo-font";
 import Index from "./src/routes/Index";
 import { registerRootComponent } from 'expo';
 
-// O registerRootComponent garante que o App é registrado corretamente.
+
 registerRootComponent(Index);
-
-
 
 export default function App() {
   const [start, setStart] = useState(false);
@@ -42,13 +40,15 @@ export default function App() {
         </View>
       ) : (
         <ImageBackground
-          source={require("./src/images/foto14.png")}
+          source={require("./src/images/foto2.png")}
           style={{
             flex: 1,
+            width: '100%',
+            height: '100%',
             justifyContent: 'center',
-            alignItems: 'center', // Centraliza a imagem horizontalmente
-            resizeMode: 'contain', // Ajusta a imagem para caber na tela sem cortar
+            alignItems: 'center',
           }}
+          imageStyle={{ resizeMode: 'cover' }}
         >
           <Animated.View
             style={{
@@ -64,10 +64,10 @@ export default function App() {
                 paddingVertical: 15,
                 paddingHorizontal: 30,
                 borderRadius: 25,
-                flexDirection: 'row', // Coloca o conteúdo do botão na horizontal
+                flexDirection: 'row', 
                 alignItems: 'center',
-                justifyContent: 'center', // Centraliza o botão horizontalmente
-                marginTop: '10%', // Diminui a margem para cima para não cobrir o botão
+                justifyContent: 'center', 
+                marginTop: '10%',
               }}
               onPress={() => setStart(true)}
             >

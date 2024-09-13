@@ -6,14 +6,13 @@ import { ScrollView } from 'react-native-gesture-handler';
 const GradientPage = () => {
   // Array de estilos personalizados para cada cubo
   const cubes = [
-    { id: 1, image: require('../images/cacaotesouro.jpeg') },
-    { id: 2, image: require('../images/campominado.jpeg') },
-    { id: 3, image: require('../images/2048.png') },
-    { id: 4, image: require('../images/circulo.png') },
-    { id: 5, image: require('../images/cores.jpeg') },
-    { id: 6, image: require('../images/labirinto.png') },
-    { id: 7, image: require('../images/memoria.jpeg') },
-    { id: 8, image: require('../images/snake.jpeg') },
+    { id: 1, image: require('../images/matematica.png') },
+    { id: 2, image: require('../images/memoria.png') },
+    { id: 3, image: require('../images/quiz.png') },
+    { id: 4, image: require('../images/caçaaotesouro.png') },
+    { id: 5, image: require('../images/cobrinha.png') },
+    { id: 6, image: require('../images/campominado.png') },
+    { id: 7, image: require('../images/jogo2048.png') },
   ];
 
   return (
@@ -25,18 +24,15 @@ const GradientPage = () => {
       </View>
       <Text style={styles.subtitle}>Catálogo</Text>
 
-      {/* Adicionando os cubos com ScrollView */}
-      <ScrollView contentContainerStyle={styles.cubeWrapper}>
-        <View style={styles.leftColumn}>
-          {cubes.slice(0, 4).map((cube) => (
-            <ImageBackground key={cube.id} source={cube.image} style={styles.cube} />
-          ))}
-        </View>
-        <View style={styles.rightColumn}>
-          {cubes.slice(4, 8).map((cube) => (
-            <ImageBackground key={cube.id} source={cube.image} style={styles.cube} />
-          ))}
-        </View>
+      {/* Adicionando os cubos com ScrollView horizontal */}
+      <ScrollView
+        horizontal={true}
+        contentContainerStyle={styles.cubeWrapper}
+        showsHorizontalScrollIndicator={false}
+      >
+        {cubes.map((cube) => (
+          <ImageBackground key={cube.id} source={cube.image} style={styles.cube} />
+        ))}
       </ScrollView>
     </LinearGradient>
   );
@@ -67,22 +63,14 @@ const styles = StyleSheet.create({
   },
   cubeWrapper: {
     flexDirection: 'row',
-    justifyContent: 'space-between',
-    width: '100%',
-    paddingHorizontal: 10,
-  },
-  leftColumn: {
-    flex: 1,
+    justifyContent: 'center',
     alignItems: 'center',
-  },
-  rightColumn: {
-    flex: 1,
-    alignItems: 'center',
+    paddingVertical: 20,
   },
   cube: {
-    width: 200,
-    height: 200,
-    margin: 20,
+    width: 350,
+    height: 350,
+    marginHorizontal: 10,
   },
 });
 

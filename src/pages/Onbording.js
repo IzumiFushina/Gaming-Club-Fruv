@@ -7,8 +7,8 @@ const { width, height } = Dimensions.get('window');
 
 const slides = [
   { image: require('../images/avatar.png'), text: 'Bem-vindo ao App!' },
-  { image: require('../images/game-background.jpeg'), text: 'Descubra novas funcionalidades!' },
-  { image: require('../images/tic-tac-toe.png'), text: 'Comece sua jornada agora!' },
+  { image: require('../images/fundo.png'), text: 'Descubra novas funcionalidades!' },
+  { image: require('../images/galaxy.jpg'), text: 'Comece sua jornada agora!' },
 ];
 
 const OnboardingScreen = () => {
