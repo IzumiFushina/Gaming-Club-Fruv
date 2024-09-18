@@ -9,6 +9,8 @@ import JogoDaMemoria from "../pages/JogoDaMemoria";
 import Login from "../pages/Login";
 import Quiz from "../pages/Quiz";
 import JogoMat from "../pages/JogoMat";
+import CaçaPalavras from "../pages/CaçaPalavras";
+import chess from "../pages/chess";
 
 const Drawer = createDrawerNavigator();
 
@@ -38,6 +40,8 @@ export default function Index() {
         <Drawer.Screen name="JogoDaMemoria" component={JogoDaMemoria} />
         <Drawer.Screen name="Quiz" component={Quiz} />
         <Drawer.Screen name="JogoMat" component={JogoMat} />
+        <Drawer.Screen name="CaçaPalavras" component={CaçaPalavras} />
+        <Drawer.Screen name="chess" component={chess} />
       </Drawer.Navigator>
     </NavigationContainer>
   );
