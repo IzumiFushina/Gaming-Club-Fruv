@@ -9,8 +9,9 @@ import JogoDaMemoria from "../pages/JogoDaMemoria";
 import Login from "../pages/Login";
 import Quiz from "../pages/Quiz";
 import JogoMat from "../pages/JogoMat";
-import CaçaPalavras from "../pages/CaçaPalavras";
 import chess from "../pages/chess";
+import FlappyPixel from "../pages/FlappyPixel";
+import JogodaVelha from "../pages/JogodaVelha";
 
 const Drawer = createDrawerNavigator();
 
@@ -18,12 +19,13 @@ const Drawer = createDrawerNavigator();
 function CustomDrawerContent(props) {
   return (
     <DrawerContentScrollView {...props}>
-      <View style={{ padding: 20, alignItems: 'center' }}>
+      <View style={{ padding: 20, alignItems: 'center', }}>
       <Image
-          source={require("../images/avatar.png")}
+          source={require("../images/foto13.png")}
           style={{ width: 65, height: 65 }}
         />
-        <Text style={{ marginVertical: 10, fontWeight: 'bold', fontSize: 16 }}>Nome do Usuário</Text>
+        <Text style={{ marginVertical: 10, fontWeight: 'bold', fontSize: 16 }}>Bem vindo ao</Text>
+        <Text style={{ fontWeight: 'bold', fontSize: 16 }}>GamingClub</Text>
       </View>
       <DrawerItemList {...props} />
     </DrawerContentScrollView>
@@ -40,8 +42,10 @@ export default function Index() {
         <Drawer.Screen name="JogoDaMemoria" component={JogoDaMemoria} />
         <Drawer.Screen name="Quiz" component={Quiz} />
         <Drawer.Screen name="JogoMat" component={JogoMat} />
-        <Drawer.Screen name="CaçaPalavras" component={CaçaPalavras} />
         <Drawer.Screen name="chess" component={chess} />
+        <Drawer.Screen name="FlappyPixel" component={FlappyPixel} />
+        <Drawer.Screen name="JogodaVelha" component={JogodaVelha} />
+       
       </Drawer.Navigator>
     </NavigationContainer>
   );

@@ -167,7 +167,7 @@ const styles = StyleSheet.create({
     flex: 1,
     justifyContent: 'center',
     alignItems: 'center',
-    backgroundColor: '#f0f0f0',
+    backgroundColor: '#2A1B0A',
     padding: 20,
   },
   chessboard: {
@@ -175,7 +175,7 @@ const styles = StyleSheet.create({
     height: 410,
     flexDirection: 'row',
     flexWrap: 'wrap',
-    backgroundColor: '#769656',
+    backgroundColor: '#61380B',
     padding: 5,
     borderRadius: 5,
   },

@@ -4,24 +4,26 @@ import { View, Text, TextInput, TouchableOpacity, StyleSheet, Alert, Animated } 
 const generateEquation = (level) => {
   const num1 = Math.floor(Math.random() * 10 * level);
   const num2 = Math.floor(Math.random() * 10 * level);
-  const operators = ['+', '-', '*'];
-  const operator = operators[Math.floor(Math.random() * operators.length)];
+  const num3 = level > 5 ? Math.floor(Math.random() * 10 * level) : null; // Adiciona um terceiro número para níveis maiores
+  const operators = level > 3 ? ['+', '-', '*', '/'] : ['+', '-', '*']; // Adiciona divisão a partir do nível 4
+  const operator1 = operators[Math.floor(Math.random() * operators.length)];
+  const operator2 = num3 ? operators[Math.floor(Math.random() * operators.length)] : null;
+  
   let result;
-
-  switch (operator) {
-    case '+':
-      result = num1 + num2;
-      break;
-    case '-':
-      result = num1 - num2;
-      break;
-    case '*':
-      result = num1 * num2;
-      break;
+  
+  // Calcula a equação dependendo se há um terceiro número ou não
+  if (num3 !== null) {
+    result = eval(`${num1} ${operator1} ${num2} ${operator2} ${num3}`);
+  } else {
+    result = eval(`${num1} ${operator1} ${num2}`);
   }
+  
+  const equation = num3 !== null 
+    ? `${num1} ${operator1} ${num2} ${operator2} ${num3}`
+    : `${num1} ${operator1} ${num2}`;
 
   return {
-    equation: `${num1} ${operator} ${num2}`,
+    equation,
     answer: result
   };
 };
@@ -61,122 +63,116 @@ export default function JogoMat() {
   };
 
   return (
-    <View style={styles.container}>
-      <Animated.Text style={[styles.title, { opacity: fadeAnim }]}>
-        Jogo de Matemática
-      </Animated.Text>
-      <Text style={styles.level}>Nível: {level}</Text>
-      <Animated.Text style={[styles.equation, { opacity: fadeAnim }]}>
-        {equation.equation}
-      </Animated.Text>
+    <View style={styles.outerContainer}>
+      <View style={styles.container}>
+        <Animated.Text style={[styles.title, { opacity: fadeAnim }]}>
+          Jogo de Matemática
+        </Animated.Text>
+        <Text style={styles.level}>Nível: {level}</Text>
+        <Animated.Text style={[styles.equation, { opacity: fadeAnim }]}>
+          {equation.equation}
+        </Animated.Text>
 
-      <TextInput
-        style={styles.input}
-        keyboardType="numeric"
-        value={userAnswer}
-        onChangeText={setUserAnswer}
-        placeholder="Sua resposta"
-      />
+        <TextInput
+          style={styles.input}
+          keyboardType="numeric"
+          value={userAnswer}
+          onChangeText={setUserAnswer}
+          placeholder="Sua resposta"
+          placeholderTextColor="#888"
+        />
 
-      <TouchableOpacity onPress={checkAnswer} style={styles.button}>
-        <Text style={styles.buttonText}>Enviar Resposta</Text>
-      </TouchableOpacity>
+        <TouchableOpacity onPress={checkAnswer} style={styles.button}>
+          <Text style={styles.buttonText}>Enviar Resposta</Text>
+        </TouchableOpacity>
 
-      <Text style={styles.score}>Pontuação: {score}</Text>
+        <Text style={styles.score}>Pontuação: {score}</Text>
 
-      <TouchableOpacity onPress={resetGame} style={styles.resetButton}>
-        <Text style={styles.resetButtonText}>Reiniciar Jogo</Text>
-      </TouchableOpacity>
+        <TouchableOpacity onPress={resetGame} style={styles.resetButton}>
+          <Text style={styles.resetButtonText}>Reiniciar Jogo</Text>
+        </TouchableOpacity>
+      </View>
     </View>
   );
 }
 
 const styles = StyleSheet.create({
-  container: {
+  outerContainer: {
     flex: 1,
     justifyContent: 'center',
     alignItems: 'center',
-    backgroundColor: '#f8d1e2',
+    backgroundColor: '#e8f0f2',
     padding: 20,
   },
+  container: {
+    width: '90%',
+    backgroundColor: '#ffffff',
+    borderRadius: 20,
+    padding: 20,
+    alignItems: 'center',
+  },
   title: {
-    fontSize: 32,
+    fontSize: 36,
     fontWeight: 'bold',
-    color: '#fb6ba2',
+    color: '#4e5b6e',
     marginBottom: 20,
-    textShadowColor: '#000',
-    textShadowOffset: { width: 2, height: 2 },
-    textShadowRadius: 10,
-    animation: 'fadeInDown 2s',
+    fontFamily: 'PressStart2P',
   },
   level: {
     fontSize: 24,
-    color: '#ffcc00',
+    color: '#4e5b6e',
     marginBottom: 20,
   },
   equation: {
-    fontSize: 40,
+    fontSize: 48,
     fontWeight: 'bold',
-    color: '#fff',
+    color: '#4e5b6e',
     marginBottom: 20,
-    textShadowColor: '#000',
-    textShadowOffset: { width: 2, height: 2 },
-    textShadowRadius: 10,
     transform: [{ scale: 1.1 }],
+    fontFamily: 'PressStart2P',
   },
   input: {
     height: 50,
-    borderColor: '#fff',
+    borderColor: '#4e5b6e',
     borderWidth: 2,
     width: '80%',
     marginBottom: 20,
     textAlign: 'center',
     fontSize: 24,
-    backgroundColor: '#ffffff',
+    backgroundColor: '#f9fbfc',
+    color: '#4e5b6e',
     borderRadius: 10,
-    shadowColor: '#000',
-    shadowOffset: { width: 0, height: 2 },
-    shadowOpacity: 0.8,
-    shadowRadius: 10,
-    elevation: 10,
+    fontFamily: 'PressStart2P',
   },
   button: {
-    backgroundColor: '#ff6600',
+    backgroundColor: '#4e5b6e',
     padding: 15,
     borderRadius: 10,
     marginBottom: 20,
-    shadowColor: '#000',
-    shadowOffset: { width: 0, height: 2 },
-    shadowOpacity: 0.8,
-    shadowRadius: 10,
-    elevation: 10,
-    transform: [{ scale: 1.05 }],
   },
   buttonText: {
     color: '#fff',
-    fontSize: 18,
+    fontSize: 14,
     fontWeight: 'bold',
     textTransform: 'uppercase',
+    fontFamily: 'PressStart2P',
   },
   score: {
-    fontSize: 20,
-    color: '#ffcc00',
+    fontSize: 24,
+    color: '#4e5b6e',
     marginBottom: 20,
+    fontFamily: 'PressStart2P',
   },
   resetButton: {
-    backgroundColor: '#e60000',
+    backgroundColor: '#b0bec5',
     padding: 15,
     borderRadius: 10,
-    shadowColor: '#000',
-    shadowOffset: { width: 0, height: 2 },
-    shadowOpacity: 0.8,
-    shadowRadius: 10,
-    elevation: 10,
   },
   resetButtonText: {
     color: '#fff',
-    fontSize: 18,
+    fontSize: 15,
     fontWeight: 'bold',
     textTransform: 'uppercase',
+    fontFamily: 'PressStart2P',
   },
 });

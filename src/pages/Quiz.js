@@ -24,10 +24,21 @@ export default function App() {
       respostaCorreta: '1969',
     },
     {
-      pergunta: 'Qual é o elemento químico representado pela letra O?',
+      pergunta: 'Quem escreveu "Dom Quixote"?',
       respostas: ['Oxigênio', 'Ouro', 'Osso', 'Ósmio'],
       respostaCorreta: 'Oxigênio',
     },
+    {
+      pergunta: 'Qual é o maior oceano do mundo?',
+      respostas: ['Oceano Atlântico', 'Oceano Índico', 'Oceano Pacífico', 'Oceano Ártico'],
+      respostaCorreta: 'Oceano Pacífico',
+    },
+    {
+      pergunta: 'Qual é o elemento químico representado pela letra O?',
+      respostas: ['William Shakespeare', 'Gabriel García Márquez', 'Miguel de Cervantes', 'Victor Hugo'],
+      respostaCorreta: 'Miguel de Cervantes',
+    },
+    
   ];
 
   const [indiceAtual, setIndiceAtual] = useState(0);
@@ -56,7 +67,7 @@ export default function App() {
     <View style={styles.container}>
       {/* Banner do topo */}
       <View style={styles.banner}>
-        <Text style={styles.bannerText}>NÍbel  - {indiceAtual + 1}</Text>
+        <Text style={styles.bannerText}>NÍvel  - {indiceAtual + 1}</Text>
       </View>
 
       {/* Pergunta */}

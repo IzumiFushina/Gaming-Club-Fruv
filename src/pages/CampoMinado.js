@@ -134,7 +134,7 @@ const App = () => {
         key={`${row}-${col}`}
         style={[
           styles.square,
-          { backgroundColor: square.isRevealed ? (square.isMine ? '#f4a261' : 'gray') : 'white' },
+          { backgroundColor: square.isRevealed ? (square.isMine ? '#f4a261' : '#B0E0E6') : 'white' },
         ]}
         onPress={() => handleSquarePress(row, col)}
       >
@@ -145,6 +145,7 @@ const App = () => {
 
   return (
     <View style={styles.container}>
+      <Text> Campo minado</Text>
       <View style={styles.board}>
         {board.map((row, rowIndex) => (
           <View key={rowIndex} style={styles.row}>
@@ -164,14 +165,14 @@ const styles = StyleSheet.create({
     flex: 1,
     justifyContent: 'center',
     alignItems: 'center',
-    backgroundColor: '#7ed957',
+    backgroundColor: '#E0FFFF',
   },
   board: {
     flexDirection: 'column',
     backgroundColor: '',
     padding: 8,
     borderWidth: 8,
-    borderColor: '#00bf63',
+    borderColor: '#1E90FF',
   },
   row: {
     flexDirection: 'row',
@@ -182,7 +183,7 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     alignItems: 'center',
     borderWidth: 2,
-    borderColor: '#c1ff72',
+    borderColor: '#1E90FF',
   },
   squareText: {
     fontSize: 18,
@@ -192,7 +193,7 @@ const styles = StyleSheet.create({
   resetButton: {
     marginTop: 20,
     padding: 10,
-    backgroundColor: '#00bf63',
+    backgroundColor: '#87CEEB',
     borderRadius: 8,
   },
   resetButtonText: {

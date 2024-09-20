@@ -221,8 +221,8 @@ const styles = StyleSheet.create({
     alignSelf: "center",
     alignItems: "center",
     justifyContent: "center",
-    height: 50,
-    width: "70%",
+    height: "10%",
+    width: 140,
     marginTop: 20,
     backgroundColor: "#fadb42",
     borderRadius: 8,
@@ -239,7 +239,7 @@ const styles = StyleSheet.create({
     color: 'white',
     fontSize: 18,
     fontWeight: 'bold',
-    letterSpacing: 15,
+
   },
   viewCds: {
     height: '80%',

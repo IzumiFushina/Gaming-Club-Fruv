@@ -205,7 +205,7 @@ const styles = StyleSheet.create({
     alignItems: "center",
     justifyContent: "center",
     height: 50,
-    width: "70%",
+    width: 100,
     marginTop: 20,
     backgroundColor: "#fadb42",
     borderRadius: 8,
@@ -222,7 +222,7 @@ const styles = StyleSheet.create({
     color: 'white',
     fontSize: 18,
     fontWeight: 'bold',
-    letterSpacing: 15,
+
   },
   viewCds: {
     height: '60%',
