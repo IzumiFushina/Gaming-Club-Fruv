@@ -12,6 +12,7 @@ import JogoMat from "../pages/JogoMat";
 import chess from "../pages/chess";
 import FlappyPixel from "../pages/FlappyPixel";
 import JogodaVelha from "../pages/JogodaVelha";
+import JogoPalavras from "../pages/JogoPalavras";
 
 const Drawer = createDrawerNavigator();
 
@@ -45,6 +46,7 @@ export default function Index() {
         <Drawer.Screen name="chess" component={chess} />
         <Drawer.Screen name="FlappyPixel" component={FlappyPixel} />
         <Drawer.Screen name="JogodaVelha" component={JogodaVelha} />
+        <Drawer.Screen name="JogoPalavras" component={JogoPalavras} />
        
       </Drawer.Navigator>
     </NavigationContainer>

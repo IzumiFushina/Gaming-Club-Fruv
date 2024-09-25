@@ -1,7 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { StyleSheet, View, Text, TouchableOpacity } from 'react-native';
 
-// Peças iniciais do tabuleiro e suas representações
 const initialBoard = [
   ['♜', '♞', '♝', '♛', '♚', '♝', '♞', '♜'],
   ['♟', '♟', '♟', '♟', '♟', '♟', '♟', '♟'],
@@ -30,11 +29,10 @@ const pieces = {
 
 export default function ChessGame() {
   const [board, setBoard] = useState(initialBoard);
-  const [currentTurn, setCurrentTurn] = useState('w'); // Turno atual
+  const [currentTurn, setCurrentTurn] = useState('w');
   const [selectedPiece, setSelectedPiece] = useState(null);
   const [possibleMoves, setPossibleMoves] = useState([]);
 
-  // Renderizar o tabuleiro
   const renderBoard = () => {
     return board.map((row, rowIndex) => {
       return row.map((square, colIndex) => {
@@ -56,7 +54,6 @@ export default function ChessGame() {
     });
   };
 
-  // Lidar com clique no quadrado
   const handleSquareClick = (row, col) => {
     const piece = board[row][col];
     if (selectedPiece) {
@@ -78,18 +75,15 @@ export default function ChessGame() {
     }
   };
 
-  // Selecionar peça
   const selectPiece = (row, col) => {
     setSelectedPiece({ row, col });
     setPossibleMoves(calculatePossibleMoves(row, col));
   };
 
-  // Validar se o movimento é válido
   const isValidMove = (fromRow, fromCol, toRow, toCol) => {
     return possibleMoves.some(move => move.row === toRow && move.col === toCol);
   };
 
-  // Mover peça
   const movePiece = (fromRow, fromCol, toRow, toCol) => {
     const newBoard = board.map(row => row.slice());
     newBoard[toRow][toCol] = board[fromRow][fromCol];
@@ -97,7 +91,6 @@ export default function ChessGame() {
     setBoard(newBoard);
   };
 
-  // Calcular movimentos possíveis
   const calculatePossibleMoves = (row, col) => {
     const piece = board[row][col];
     const pieceType = pieces[piece][1];
@@ -107,40 +100,30 @@ export default function ChessGame() {
       case 'P':
         moves = getPawnMoves(row, col, pieceColor);
         break;
-      // Funções para outros tipos de peças podem ser adicionadas aqui
     }
     return moves;
   };
 
-  // Calcular movimentos do peão
   const getPawnMoves = (row, col, color) => {
     const direction = color === 'w' ? -1 : 1;
     const moves = [];
-
-    // Movimento para frente
     if (board[row + direction] && board[row + direction][col] === '') {
       moves.push({ row: row + direction, col: col });
     }
-
-    // Captura diagonal
     if (board[row + direction] && board[row + direction][col - 1] && pieces[board[row + direction][col - 1]] && pieces[board[row + direction][col - 1]][0] !== color) {
       moves.push({ row: row + direction, col: col - 1 });
     }
     if (board[row + direction] && board[row + direction][col + 1] && pieces[board[row + direction][col + 1]] && pieces[board[row + direction][col + 1]][0] !== color) {
       moves.push({ row: row + direction, col: col + 1 });
     }
-
-    // Movimento duplo no primeiro movimento
     if ((color === 'w' && row === 6) || (color === 'b' && row === 1)) {
       if (board[row + 2 * direction][col] === '' && board[row + direction][col] === '') {
         moves.push({ row: row + 2 * direction, col: col });
       }
     }
-
     return moves;
   };
 
-  // Resetar o jogo
   const resetGame = () => {
     setBoard(initialBoard);
     setCurrentTurn('w');
@@ -153,9 +136,9 @@ export default function ChessGame() {
       <View style={styles.chessboard}>{renderBoard()}</View>
       <View style={styles.gameInfo}>
         <Text style={styles.heading}>Chess Game</Text>
-        <Text>Current Turn: {currentTurn === 'w' ? 'White' : 'Black'}</Text>
+        <Text style={styles.turnText}>Vez do: {currentTurn === 'w' ? 'Branco' : 'Preto'}</Text>
         <TouchableOpacity style={styles.newGameButton} onPress={resetGame}>
-          <Text style={styles.newGameButtonText}>New Game</Text>
+          <Text style={styles.newGameButtonText}>Novo jogo</Text>
         </TouchableOpacity>
       </View>
     </View>
@@ -167,58 +150,65 @@ const styles = StyleSheet.create({
     flex: 1,
     justifyContent: 'center',
     alignItems: 'center',
-    backgroundColor: '#2A1B0A',
+    backgroundColor: '#EFEFEF',
     padding: 20,
   },
   chessboard: {
-    width: 410,
-    height: 410,
+    width: 400,
+    height: 400,
     flexDirection: 'row',
     flexWrap: 'wrap',
-    backgroundColor: '#61380B',
+    backgroundColor: '#8B5E3C',
     padding: 5,
-    borderRadius: 5,
+    borderRadius: 10,
   },
   square: {
-    width: 50,
-    height: 50,
+    width: 48,
+    height: 48,
     justifyContent: 'center',
     alignItems: 'center',
   },
   white: {
-    backgroundColor: '#eeeed2',
+    backgroundColor: '#F7F7F7',
   },
   black: {
-    backgroundColor: '#769656',
+    backgroundColor: '#B38867',
   },
   selected: {
-    backgroundColor: '#baca44',
+    backgroundColor: '#FFCC00',
   },
   possibleMove: {
-    backgroundColor: '#f7f769',
+    backgroundColor: '#FFD700',
   },
   piece: {
-    fontSize: 30,
+    fontSize: 26,
   },
   gameInfo: {
     marginTop: 20,
-    padding: 10,
-    backgroundColor: 'white',
-    borderRadius: 5,
-    shadowColor: 'rgba(0, 0, 0, 0.1)',
+    padding: 15,
+    backgroundColor: '#FFFFFF',
+    borderRadius: 10,
+    shadowColor: '#000',
     shadowOffset: { width: 0, height: 2 },
-    shadowOpacity: 0.5,
-    shadowRadius: 5,
+    shadowOpacity: 0.2,
+    shadowRadius: 4,
     elevation: 5,
+    alignItems: 'center',
   },
   heading: {
-    fontSize: 22,
+    fontSize: 24,
     marginBottom: 10,
+    color: '#333',
+  },
+  turnText: {
+    fontSize: 18,
+    marginBottom: 10,
+    color: '#555',
   },
   newGameButton: {
     marginTop: 10,
     padding: 10,
-    backgroundColor: '#007BFF',
+    backgroundColor: '#6A1B9A',
     borderRadius: 5,
   },
   newGameButtonText: {

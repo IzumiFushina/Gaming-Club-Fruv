@@ -145,7 +145,7 @@ const App = () => {
 
   return (
     <View style={styles.container}>
-      <Text> Campo minado</Text>
+      <Text style={styles.textTitulo}> Campo minado </Text>
       <View style={styles.board}>
         {board.map((row, rowIndex) => (
           <View key={rowIndex} style={styles.row}>
@@ -202,6 +202,14 @@ const styles = StyleSheet.create({
     fontFamily: 'Courier',
     fontSize: 16,
   },
+
+  textTitulo: {
+   fontFamily: 'Font1',
+   fontSize: 30,
+   color: '#1E90FF',
+   marginBottom: 30,
+  },
+
 });
 
 export default App;

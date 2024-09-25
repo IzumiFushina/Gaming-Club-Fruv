@@ -1,64 +1,118 @@
 import React, { useState } from 'react';
-import { View, Text, TouchableOpacity, StyleSheet } from 'react-native';
+import { View, Text, TouchableOpacity, StyleSheet, Alert } from 'react-native';
 
 export default function App() {
-  const perguntas = [
+  const niveis = [
     {
-      pergunta: 'Qual é a capital do Brasil?',
-      respostas: ['Rio de Janeiro', 'Brasília', 'São Paulo', 'Salvador'],
-      respostaCorreta: 'Brasília',
+      nivel: 1,
+      perguntas: [
+        {
+          pergunta: 'Qual é a capital do Brasil?',
+          respostas: ['Rio de Janeiro', 'Brasília', 'São Paulo', 'Salvador'],
+          respostaCorreta: 'Brasília',
+        },
+        {
+          pergunta: 'Qual é o maior planeta do sistema solar?',
+          respostas: ['Terra', 'Marte', 'Júpiter', 'Saturno'],
+          respostaCorreta: 'Júpiter',
+        },
+        {
+          pergunta: 'Quem pintou a Mona Lisa?',
+          respostas: ['Vincent van Gogh', 'Leonardo da Vinci', 'Pablo Picasso', 'Claude Monet'],
+          respostaCorreta: 'Leonardo da Vinci',
+        },
+      ],
     },
     {
-      pergunta: 'Qual é o maior planeta do sistema solar?',
-      respostas: ['Terra', 'Marte', 'Júpiter', 'Saturno'],
-      respostaCorreta: 'Júpiter',
+      nivel: 2,
+      perguntas: [
+        {
+          pergunta: 'Em que ano o homem pisou na Lua pela primeira vez?',
+          respostas: ['1959', '1969', '1979', '1989'],
+          respostaCorreta: '1969',
+        },
+        {
+          pergunta: 'Quem escreveu "Dom Quixote"?',
+          respostas: ['William Shakespeare', 'Gabriel García Márquez', 'Miguel de Cervantes', 'Victor Hugo'],
+          respostaCorreta: 'Miguel de Cervantes',
+        },
+        {
+          pergunta: 'Qual é o maior oceano do mundo?',
+          respostas: ['Oceano Atlântico', 'Oceano Índico', 'Oceano Pacífico', 'Oceano Ártico'],
+          respostaCorreta: 'Oceano Pacífico',
+        },
+      ],
     },
     {
-      pergunta: 'Quem pintou a Mona Lisa?',
-      respostas: ['Vincent van Gogh', 'Leonardo da Vinci', 'Pablo Picasso', 'Claude Monet'],
-      respostaCorreta: 'Leonardo da Vinci',
+      nivel: 3,
+      perguntas: [
+        {
+          pergunta: 'Qual é o elemento químico representado pela letra O?',
+          respostas: ['Oxigênio', 'Ouro', 'Osso', 'Ósmio'],
+          respostaCorreta: 'Oxigênio',
+        },
+        {
+          pergunta: 'Quem escreveu "A Metamorfose"?',
+          respostas: ['Franz Kafka', 'J.R.R. Tolkien', 'George Orwell', 'Ernest Hemingway'],
+          respostaCorreta: 'Franz Kafka',
+        },
+        {
+          pergunta: 'Qual é a montanha mais alta do mundo?',
+          respostas: ['K2', 'Kangchenjunga', 'Everest', 'Lhotse'],
+          respostaCorreta: 'Everest',
+        },
+      ],
     },
     {
-      pergunta: 'Em que ano o homem pisou na Lua pela primeira vez?',
-      respostas: ['1959', '1969', '1979', '1989'],
-      respostaCorreta: '1969',
+      nivel: 4,
+      perguntas: [
+        {
+          pergunta: 'Quem foi o primeiro matemático a provar o último teorema de Fermat?',
+          respostas: ['Andrew Wiles', 'Pierre de Fermat', 'Leonhard Euler', 'Carl Gauss'],
+          respostaCorreta: 'Andrew Wiles',
+        },
+        {
+          pergunta: 'Em que ano começou a Revolução Francesa?',
+          respostas: ['1776', '1789', '1804', '1815'],
+          respostaCorreta: '1789',
+        },
+        {
+          pergunta: 'Qual é a distância da Terra ao Sol, em média?',
+          respostas: ['150 milhões de km', '120 milhões de km', '100 milhões de km', '200 milhões de km'],
+          respostaCorreta: '150 milhões de km',
+        },
+      ],
     },
-    {
-      pergunta: 'Quem escreveu "Dom Quixote"?',
-      respostas: ['Oxigênio', 'Ouro', 'Osso', 'Ósmio'],
-      respostaCorreta: 'Oxigênio',
-    },
-    {
-      pergunta: 'Qual é o maior oceano do mundo?',
-      respostas: ['Oceano Atlântico', 'Oceano Índico', 'Oceano Pacífico', 'Oceano Ártico'],
-      respostaCorreta: 'Oceano Pacífico',
-    },
-    {
-      pergunta: 'Qual é o elemento químico representado pela letra O?',
-      respostas: ['William Shakespeare', 'Gabriel García Márquez', 'Miguel de Cervantes', 'Victor Hugo'],
-      respostaCorreta: 'Miguel de Cervantes',
-    },
-    
   ];
 
   const [indiceAtual, setIndiceAtual] = useState(0);
+  const [nivelAtual, setNivelAtual] = useState(0); // Controla o nível
   const [respostaSelecionada, setRespostaSelecionada] = useState(null);
   const [pontuacao, setPontuacao] = useState(0);
 
   const handleAnswer = (resposta) => {
     setRespostaSelecionada(resposta);
-    if (resposta === perguntas[indiceAtual].respostaCorreta) {
+    const perguntaAtual = niveis[nivelAtual].perguntas[indiceAtual];
+    
+    if (resposta === perguntaAtual.respostaCorreta) {
       setPontuacao(pontuacao + 1);
+    } else {
+      // Exibe o alerta quando a resposta estiver errada
+      Alert.alert('Resposta Incorreta', `A resposta correta era: ${perguntaAtual.respostaCorreta}`);
     }
   };
 
   const proximaPergunta = () => {
     setRespostaSelecionada(null);
-    if (indiceAtual < perguntas.length - 1) {
+    if (indiceAtual < 2) { // Se ainda houver perguntas no nível atual
       setIndiceAtual(indiceAtual + 1);
-    } else {
-      alert(`Quiz finalizado! Você acertou ${pontuacao} de ${perguntas.length} perguntas.`);
+    } else if (nivelAtual < niveis.length - 1) { // Se houver outro nível
       setIndiceAtual(0);
+      setNivelAtual(nivelAtual + 1);
+    } else {
+      alert(`Quiz finalizado! Você acertou ${pontuacao} perguntas.`);
+      setIndiceAtual(0);
+      setNivelAtual(0);
       setPontuacao(0);
     }
   };
@@ -67,23 +121,25 @@ export default function App() {
     <View style={styles.container}>
       {/* Banner do topo */}
       <View style={styles.banner}>
-        <Text style={styles.bannerText}>NÍvel  - {indiceAtual + 1}</Text>
+        <Text style={styles.bannerText}>Nível {nivelAtual + 1}</Text>
       </View>
 
       {/* Pergunta */}
       <View style={styles.questionContainer}>
-        <Text style={styles.questionText}>{perguntas[indiceAtual].pergunta}</Text>
+        <Text style={styles.questionText}>
+          {niveis[nivelAtual].perguntas[indiceAtual].pergunta}
+        </Text>
       </View>
 
       {/* Respostas */}
       <View style={styles.answersContainer}>
-        {perguntas[indiceAtual].respostas.map((resposta, index) => (
+        {niveis[nivelAtual].perguntas[indiceAtual].respostas.map((resposta, index) => (
           <TouchableOpacity
             key={index}
             style={[
               styles.answerButton,
               respostaSelecionada === resposta && {
-                backgroundColor: resposta === perguntas[indiceAtual].respostaCorreta ? '#4CAF50' : '#F44336',
+                backgroundColor: resposta === niveis[nivelAtual].perguntas[indiceAtual].respostaCorreta ? '#4CAF50' : '#F44336',
               },
             ]}
             onPress={() => handleAnswer(resposta)}
@@ -109,7 +165,7 @@ const styles = StyleSheet.create({
     flex: 1,
     justifyContent: 'center',
     alignItems: 'center',
-    backgroundColor: 'linear-gradient(180deg, #ff9a9e, #fad0c4)',
+    backgroundColor: '#f0f0f0',
     padding: 20,
   },
   banner: {

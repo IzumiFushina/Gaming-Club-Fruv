@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { View, Text, StyleSheet, TouchableOpacity } from 'react-native';
 import Svg, { Circle, Rect } from 'react-native-svg';
 
+
 const FlappyPixel = () => {
   const [bird, setBird] = useState({ x: 50, y: 240, velocity: 0 });
   const [pipes, setPipes] = useState([]);
@@ -14,9 +15,9 @@ const FlappyPixel = () => {
     gravity: 1.0,
     jumpStrength: -8,
     pipeSpeed: 10,
-    pipeGap: 150,
+    pipeGap: 170,
     pipeWidth: 60,
-    spawnInterval: 1500,
+    spawnInterval: 2000,
   };
 
   // Função para atualizar o estado do pássaro (gravidade, etc.)
@@ -140,3 +141,4 @@ const styles = StyleSheet.create({
 });
 
 export default FlappyPixel;
+
